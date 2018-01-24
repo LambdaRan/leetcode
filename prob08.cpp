@@ -2,8 +2,9 @@
 
 #include <iostream>
 #include <string>
-
+#include <cstdio>
 #include <cctype>
+#include <cassert>
 
 using std::string;
 using std::cin;
@@ -17,7 +18,8 @@ public:
         int c;
         int index;
         int neg;
-        int base;
+
+        int ret=0;
 
         if (str.empty())
             return 0;
@@ -35,16 +37,30 @@ public:
             if (c == '+')
                 c = str[index++];
         }
+        for (;isdigit(c); c = str[index++]) {
+            int digit = c - '0';
+            if (neg) {
+                if (-ret < (INT_MIN + digit)/10)
+                return INT_MIN;
+            } else {
+                if (ret > (INT_MAX - digit)/10)
+                return INT_MAX;
+            }
 
-        if ()
+            ret = ret * 10 + digit;
+        }
 
+        return neg ? -ret : ret;
     }
+
+    const int INT_MAX = 2147483647;
+    const int INT_MIN = -2147483648;
 };
 
 string stringToString(string input) {
     assert(input.length() >= 2);
     string result;
-    for (int i = 1; i < input.length() -1; i++) {
+    for (size_t i = 1; i < input.length() -1; i++) {
         char currentChar = input[i];
         if (input[i] == '\\') {
             char nextChar = input[i+1];
@@ -68,14 +84,24 @@ string stringToString(string input) {
 }
 
 int main() {
-    string line;
-    while (getline(cin, line)) {
-        string str = stringToString(line);
+    // string line;
+    // while (getline(cin, line)) {
+    //     string str = stringToString(line);
         
-        int ret = Solution().myAtoi(str);
+    //     int ret = Solution().myAtoi(str);
 
-        string out = to_string(ret);
-        cout << out << endl;
-    }
+    //     string out = to_string(ret);
+    //     cout << out << endl;
+    // }
+    printf("\"%s\" = %d\n", "123", Solution().myAtoi("123"));
+    printf("\"%s\" = %d\n", "   123", Solution().myAtoi("    123"));
+    printf("\"%s\" = %d\n", "+123", Solution().myAtoi("+123"));
+    printf("\"%s\" = %d\n", " -123", Solution().myAtoi(" -123"));
+    printf("\"%s\" = %d\n", "123ABC", Solution().myAtoi("123ABC"));
+    printf("\"%s\" = %d\n", " abc123ABC", Solution().myAtoi(" abc123ABC"));
+    printf("\"%s\" = %d\n", "2147483647", Solution().myAtoi("2147483647"));
+    printf("\"%s\" = %d\n", "-2147483648", Solution().myAtoi("-2147483648"));
+    printf("\"%s\" = %d\n", "2147483648", Solution().myAtoi("2147483648"));
+    printf("\"%s\" = %d\n", "-2147483649", Solution().myAtoi("-2147483649"));
     return 0;
 }
