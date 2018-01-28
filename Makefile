@@ -7,7 +7,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = problems06.cpp
+SRC = prob09.cpp
 
 main:$(SRC) 
 	$(CC) $(CFLAG)  $(SRC) -o main
