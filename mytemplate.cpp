@@ -2,8 +2,11 @@
 #include <iostream>
 #include <string>
 
-using std::string;
-
+/*
+* Name: 
+* Description: 
+*
+*/
 class Solution {
 public:
     bool function() {
