@@ -9,6 +9,10 @@
 */
 class Solution {
 public:
+    /*
+    * Runtime:    ms
+    * Your runtime beats  % of cpp submissions. 
+    */
     bool function() {
         
     }

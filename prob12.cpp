@@ -4,7 +4,6 @@
 #include <vector>
 #include <utility> /* std::pair<> */
 
-using std::string;
 
 /*
 * Name: 12. Integer to Roman

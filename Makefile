@@ -11,17 +11,17 @@
 # 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
 CXXFLAGS += -Wall -Wextra -Werror -std=c++11
-# CXXFLAGS += -O -Wpointer-arith \
-# 		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
-# 		-Wcast-align -Wconversion -Wformat -Wchar-subscripts \
-# 		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \
-# 		-Winline -Wcast-qual -Wconversion -Wconversion-null -Wcoverage-mismatch \
-# 		-Wdiv-by-zero -Wdouble-promotion \
-# 		-Weffc++ -Wempty-body -Wendif-labels -Wenum-compare 
+CXXFLAGS += -O -Wpointer-arith \
+		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
+		-Wcast-align -Wconversion -Wformat -Wchar-subscripts \
+		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \
+		-Winline -Wcast-qual -Wconversion -Wconversion-null -Wcoverage-mismatch \
+		-Wdiv-by-zero -Wdouble-promotion \
+		-Weffc++ -Wempty-body -Wendif-labels -Wenum-compare 
 
-# CXXFLAGS += -pedantic -Wabi -Wcast-qual -Wfloat-equal  \
-# 		-Wmissing-declarations -Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls \
-# 		-Wshadow -Wno-missing-field-initializers -Wno-missing-braces -Wno-sign-compare -Wno-multichar 
+CXXFLAGS += -pedantic -Wabi -Wcast-qual -Wfloat-equal  \
+		-Wmissing-declarations -Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls \
+		-Wshadow -Wno-missing-field-initializers -Wno-missing-braces -Wno-sign-compare -Wno-multichar 
 
 #-pedantic 以ANSI/ISO C标准列出的所有警告
 #-Wabi	当编译器生成的代码和标准C++ ABI不兼容的时候发出警告。
@@ -54,7 +54,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob12.cpp
+SRC = prob13.cpp
 
 main:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o main
