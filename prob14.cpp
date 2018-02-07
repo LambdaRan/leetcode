@@ -31,8 +31,8 @@ public:
     */
     string longestCommonPrefix2(vector<string>& strs);
     /*
-    * Runtime:  8  ms
-    * Your runtime beats  24.06% of cpp submissions.
+    * Runtime:    ms
+    * Your runtime beats  % of cpp submissions.
     * Approach #3 (Divide and conquer) // 分而治之
     */
     string longestCommonPrefix3(vector<string>& strs);

@@ -10,7 +10,7 @@
 # 		 -Wmissing-declarations  -Winline \
 # 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
-CXXFLAGS += -Wall -Wextra -Werror -std=c++11
+CXXFLAGS += -Wall -Wextra -Werror -Wfatal-errors -std=c++11
 CXXFLAGS += -O -Wpointer-arith \
 		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
 		-Wcast-align -Wconversion -Wformat -Wchar-subscripts \
@@ -23,6 +23,8 @@ CXXFLAGS += -pedantic -Wabi -Wcast-qual -Wfloat-equal  \
 		-Wmissing-declarations -Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls \
 		-Wshadow -Wno-missing-field-initializers -Wno-missing-braces -Wno-sign-compare -Wno-multichar 
 
+#-Wfatal-errors 
+#-fmax-errors=N    // 在出现第 N 此错误的时候停止编译，GCC 4.6 and later
 #-pedantic 以ANSI/ISO C标准列出的所有警告
 #-Wabi	当编译器生成的代码和标准C++ ABI不兼容的时候发出警告。
 #-Wmissing-declarations
@@ -54,7 +56,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob14.cpp
+SRC = prob15.cpp
 
 main:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o main
