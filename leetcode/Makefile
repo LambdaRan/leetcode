@@ -15,9 +15,12 @@ CXXFLAGS += -O -Wpointer-arith \
 		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
 		-Wcast-align -Wconversion -Wformat -Wchar-subscripts \
 		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \
-		-Winline -Wcast-qual -Wconversion -Wconversion-null -Wcoverage-mismatch \
+		-Wcast-qual -Wconversion -Wconversion-null -Wcoverage-mismatch \
 		-Wdiv-by-zero -Wdouble-promotion \
-		-Weffc++ -Wempty-body -Wendif-labels -Wenum-compare 
+		-Wempty-body -Wendif-labels -Wenum-compare 
+
+CXXFLAGS +=	-Winline
+#CXXFLAGS += -Weffc++
 
 CXXFLAGS += -pedantic -Wabi -Wcast-qual -Wfloat-equal  \
 		-Wmissing-declarations -Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls \
@@ -56,7 +59,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob15.cpp
+SRC = prob17.cpp
 
 main:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o main
