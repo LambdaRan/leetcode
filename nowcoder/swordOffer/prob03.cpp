@@ -79,6 +79,35 @@ public:
         //std::reverse(vec.begin(), vec.end());
         return vec;
     }
+    vector<int> printListFromTailToHead4(ListNode* head) {
+        if (head == NULL) return vector<int>();
+        if (head->next == NULL) return  vector<int>(1, head->val);
+
+        ListNode newHead(0);
+
+        while (head)
+        {
+            ListNode* cur = head;
+            head = head->next;
+            cur->next = newHead.next;
+            newHead.next = cur;
+            ++newHead.val;
+        }
+
+        //std::cout << "newHead.val: " << newHead.val << std::endl;
+
+        vector<int> vec(newHead.val);
+        head = newHead.next;
+        for (int i = 0; i < newHead.val; ++i)
+        {
+            vec[i] = head->val;
+            head = head->next;
+        }
+        head = newHead.next;
+        newHead.next = NULL;
+
+        return vec;
+    }
 };
 
 int main() 
@@ -94,7 +123,7 @@ int main()
 
     std::cout << "method 1: \n";
 
-    vector<int> ret = s.printListFromTailToHead3(ln.next);
+    vector<int> ret = s.printListFromTailToHead4(ln.next);
     for (auto &v : ret)
         std::cout << v << " ";
     std::cout << std::endl;
