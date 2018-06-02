@@ -1,7 +1,9 @@
 
 #include <iostream>
-#include <string>
+#include <algorithm>
 
+
+using namespace std;
 
 /*
 * Name: 
@@ -14,15 +16,12 @@ public:
         
     }
 };
-std::string boolToString(bool input) {
-    return input ? "True" : "False";
-}
+
 int main() 
 {
     Solution s;
 
     std::cout << "method 1: \n";
-    std::cout <<  "function(): true <------> " << boolToString(s.function()) << "\n";
 
     std::cout << std::endl;
     return 0;
