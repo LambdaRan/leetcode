@@ -13,9 +13,51 @@ using namespace std;
 */
 class Solution {
 public:
+    // 思路： 
+    // （1） 统计空格个数，计算新数组长度 new = old + blank * 2；
+    // （2） 声明两个指针，P1指向旧数组的尾， P2指向新数组的尾
+    // （3） 从尾到头实现复制于替换
+    void replaceSpace(char *str, int length)
+    {
+        if (str == NULL || length <= 0) return;
+
+        // originaLength 为字符串的实际长度
+        int originaLength = 0;
+        int numberOfBlank = 0;
+        int i = 0;
+        while (str[i] != '\0')
+        {
+            ++originaLength;
+            if (str[i] == ' ')
+                ++numberOfBlank;
+            ++i;
+        }
+
+        int newLength = originaLength + numberOfBlank * 2;
+        if (newLength > length) return;
+
+        int indexOfOriginal = originaLength;
+        int indexOfNew = newLength;
+        while (indexOfOriginal >= 0 && indexOfNew > indexOfOriginal)
+        {
+            if (str[indexOfOriginal] == ' ')
+            {
+                str[indexOfNew--] = '0';
+                str[indexOfNew--] = '2';
+                str[indexOfNew--] = '%';
+            }
+            else   
+            {
+                str[indexOfNew--] = str[indexOfOriginal];
+            }
+            --indexOfOriginal;
+        }
+    }
+
+
     // 运行时间：6ms
     // 占用内存：756k
-	void replaceSpace(char *str, int length) {
+	void replaceSpace1(char *str, int length) {
         if (str == NULL) return;
 
         std::string _str(str, length);

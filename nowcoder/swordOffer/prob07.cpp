@@ -14,6 +14,23 @@ using namespace std;
 class Solution {
 public:
     int Fibonacci(int n) {
+        
+        int oldValue[] = {0, 1};
+        if (n < 2) return oldValue[n];
+        
+        long long fibNMinusOne = 1;
+        long long fibNMinusTwo = 0;
+        long long fibN = 0;
+        for (size_t i = 2; i <= n; ++i)
+        {
+            fibN = fibNMinusOne + fibNMinusTwo;
+            fibNMinusTwo = fibNMinusOne;
+            fibNMinusOne = fibN;
+        }
+
+        return fibN;
+    }
+    int Fibonacci1(int n) {
         std::vector<int> oldValue(n+1);
 
         oldValue[0] = 0;
@@ -26,7 +43,7 @@ public:
         return oldValue[n];
     }
 
-//     int Fibonacci(int n) {
+//     int Fibonacci2(int n) {
 //         int f = 0, g = 1;
 //         while(n--) {
 //             g += f;

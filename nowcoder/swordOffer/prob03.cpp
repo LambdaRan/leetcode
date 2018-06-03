@@ -22,7 +22,6 @@ struct ListNode {
        }
 };
 
-
 class Solution {
 public:
     // 运行时间：4ms
