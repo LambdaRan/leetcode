@@ -13,6 +13,20 @@ using namespace std;
 class Solution {
 public:
     int  NumberOf1(int n) {
+        int count = 0;
+        if (n < 0)
+        {
+            n = n & 0x7fffffff;
+            ++count;
+        }
+        while (n)
+        {
+            ++count;
+            n = (n - 1) & n;
+        }
+        return count;
+    }
+    int  NumberOf12(int n) {
         
         int count = 0;
         unsigned int flag = 1;
@@ -25,15 +39,15 @@ public:
         return count;
     }
     // 超时 负数时死循环
-    // int  NumberOf1(int n) { 
-    //     int ret = 0;
-    //     while (n)
-    //     {
-    //         ret += n & 0x01;
-    //         n = n >> 1;
-    //     }
-    //     return ret;
-    // }
+    int  NumberOf11(int n) { 
+        int ret = 0;
+        while (n)
+        {
+            ret += n & 0x01;
+            n = n >> 1;
+        }
+        return ret;
+    }
 };
 
 int main() 
@@ -46,7 +60,7 @@ int main()
     std::cout << "NumberOf1(43): 4 " << s.NumberOf1(43) << "\n";
     std::cout << "NumberOf1(128): 1 " << s.NumberOf1(128) << "\n";
     std::cout << "NumberOf1(4184): 4 " << s.NumberOf1(4184) << "\n";
-    std::cout << "NumberOf1(65535): 16 " << s.NumberOf1(65535) << "\n";
+    std::cout << "NumberOf1(-7): 30 " << s.NumberOf1(-7) << "\n";
 
     std::cout << std::endl;
     return 0;
