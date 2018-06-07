@@ -34,3 +34,24 @@ void merge_sort(Iter first, Iter last)
 for (auto i = v.begin(); i != v.end(); ++i) {
     std::rotate(std::upper_bound(v.begin(), i, *i), i, i+1);
 }
+
+// 二分查找
+template<class ForwardIt, class T, class Compare=std::less<>>
+ForwardIt binary_find(ForwardIt first, ForwardIt last, const T& value, Compare comp={})
+{
+    // 注意：类型 T 和 Forward 解引用后的类型都必须可隐式转换为
+    // 用于 Compare 的 Type1 和 Type2 。
+    // 这严格于 lower_bound 要求（见上述）
+ 
+    first = std::lower_bound(first, last, value, comp);
+    return first != last && !comp(value, *first) ? first : last;
+}
+
+// 以随机数填充 vector
+std::random_device rd;
+std::mt19937 mt(rd());
+std::uniform_int_distribution<> dis(0, 9);
+
+std::vector<int> v1(10), v2(10);
+std::generate(v1.begin(), v1.end(), std::bind(dis, std::ref(mt)));
+std::generate(v2.begin(), v2.end(), std::bind(dis, std::ref(mt)));
