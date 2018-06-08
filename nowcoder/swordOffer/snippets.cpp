@@ -47,6 +47,13 @@ ForwardIt binary_find(ForwardIt first, ForwardIt last, const T& value, Compare c
     return first != last && !comp(value, *first) ? first : last;
 }
 
+// 选择排序
+template<class ForwardIt>
+void selection_sort(ForwardIt begin, ForwardIt end)
+{
+    for (ForwardIt i = begin; i != end; ++i)
+        std::iter_swap(i, std::min_element(i, end));
+}
 // 以随机数填充 vector
 std::random_device rd;
 std::mt19937 mt(rd());
