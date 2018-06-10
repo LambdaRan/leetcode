@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <queue>
 
 
 using namespace std;
@@ -34,7 +35,29 @@ struct TreeNode {
 
 class Solution {
 public:
-    void Mirror(TreeNode *pRoot) {
+    // void Mirror(TreeNode* pRoot)
+    // {
+    //     if (pRoot == NULL) return;
+
+    //     std::queue<TreeNode*> queue;
+    //     queue.push(pRoot);
+
+    //     while (!queue.empty())
+    //     {
+    //         TreeNode* cur = queue.top();
+    //         queue.pop();
+
+    //         TreeNode* tmp = cur->left;
+    //         cur->right = cur->left;
+    //         cur->left = tmp;
+
+    //         if (cur->left != NULL)
+    //             queue.push(cur->left);
+    //         if (cur->right != NULL)
+    //             queue.push(cur->right);
+    //     }
+    // }
+    void Mirror1(TreeNode *pRoot) {
 
         if (pRoot == NULL) return;
         if (pRoot->left == NULL && pRoot->right == NULL) return;
@@ -47,6 +70,7 @@ public:
         pRoot->left = pRoot->right;
         pRoot->right = tmp;
     }
+
 };
 
 int main() 
