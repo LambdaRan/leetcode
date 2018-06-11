@@ -62,9 +62,9 @@ public:
         if (pRoot == NULL) return;
         if (pRoot->left == NULL && pRoot->right == NULL) return;
         //if (pRoot->left != NULL)
-            Mirror(pRoot->left);
+            Mirror1(pRoot->left);
         //if (pRoot->right != NULL)
-            Mirror(pRoot->right);
+            Mirror1(pRoot->right);
 
         TreeNode *tmp = pRoot->left;
         pRoot->left = pRoot->right;

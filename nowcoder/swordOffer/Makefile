@@ -10,18 +10,18 @@
 # 		 -Wmissing-declarations  -Winline \
 # 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
-CXXFLAGS += -Wall -Wextra -Werror -Wfatal-errors -std=c++11
+CXXFLAGS += -Wall -Wextra -Werror -Wshadow -Wconversion -Wfatal-errors -std=c++11
 CXXFLAGS += -O -Wpointer-arith \
 		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
 		-Wcast-align -Wformat -Wchar-subscripts \
 		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \
-		-Winline -Wcast-qual -Wconversion -Wconversion-null -Wcoverage-mismatch \
+		-Winline -Wcast-qual -Wconversion-null -Wcoverage-mismatch \
 		-Wdiv-by-zero -Wdouble-promotion \
 		-Weffc++ -Wempty-body -Wendif-labels -Wenum-compare 
 
 CXXFLAGS += -pedantic -Wabi -Wcast-qual -Wfloat-equal  \
 		-Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls \
-		-Wshadow -Wno-missing-field-initializers -Wno-missing-braces -Wno-sign-compare -Wno-multichar 
+		-Wno-missing-field-initializers -Wno-missing-braces -Wno-sign-compare -Wno-multichar 
 
 #CXXFLAGS += -Wmissing-declarations -Wconversion
 
@@ -58,7 +58,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob16.cpp
+SRC = prob19.cpp
 
 main:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o main
