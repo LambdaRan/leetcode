@@ -11,7 +11,7 @@
 # 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
 CXXFLAGS += -Wall -Wextra -Werror -Wshadow -Wconversion -Wfatal-errors -std=c++11
-CXXFLAGS += -O -Wpointer-arith \
+CXXFLAGS += -g -Wpointer-arith \
 		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
 		-Wcast-align -Wformat -Wchar-subscripts \
 		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \

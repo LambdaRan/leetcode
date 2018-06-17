@@ -20,7 +20,7 @@ public:
     bool IsPopOrder(vector<int> pushV,vector<int> popV) {
         bool result = false;
 
-        if (!pushV.empty() && !popV.size())
+        if (!pushV.empty() && !popV.empty())
         {
             size_t pushVIndex = 0;
             size_t popVIndex = 0;
