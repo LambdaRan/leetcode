@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-
+#include <stack>
 
 using namespace std;
 
@@ -24,12 +24,12 @@ struct TreeNode {
 class Solution {
 public:
     vector<vector<int> > FindPath(TreeNode* root, int expectNumber) {
-        if (root == NULL) return;
+        if (root == NULL) return vector<vector<int>>();
 
         vector<vector<int>> result;
         vector<TreeNode*> deepVector;
         TreeNode* cur = root;
-        TreeNode *preTurn = NULL; // 指向前一个被访问的节点 
+        stack<TreeNode*> rightStack; 
         int sum = 0;
 
         while (cur != NULL || !deepVector.empty())
@@ -38,31 +38,40 @@ public:
             {
                 deepVector.push_back(cur);
                 sum += cur->val;
-                if (sum == expectNumber)
-                {
-                    vector<int> onePath;
-                    for (TreeNode* v : deepVector)
-                        onePath.push_back(v->val);
-                    result.push_back(onePath);
-                }
                 cur = cur->left;
             }
 
             cur = deepVector.back();
 
             // 当前节点的右孩子如果为空或者已经被访问，则访问当前节点
-            if (cur->right == NULL || cur->right == preVisit) // 到达叶结点
+            if (cur->right == NULL || (!rightStack.empty() && cur == rightStack.top())) // 到达叶结点
             {
+                if (cur->left == NULL && cur->right == NULL)
+                {
+                    if (sum == expectNumber)
+                    {
+                        vector<int> onePath;
+                        for (TreeNode* v : deepVector)
+                            onePath.push_back(v->val);
+                        result.push_back(onePath);
+                    }                    
+                }
+                if (!rightStack.empty() && cur == rightStack.top())
+                {
+                    rightStack.pop();
+                }
                 sum -= cur->val;
                 deepVector.pop_back();
                 cur = NULL;
             }
             else  
             {
-                preVisit = cur;
+                rightStack.push(cur);
                 cur = cur->right;
             }
         }
+
+        return result;
     }
 };
 
