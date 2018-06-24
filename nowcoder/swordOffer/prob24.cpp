@@ -25,9 +25,36 @@ class Solution {
 
 public: 
     vector<vector<int> > FindPath(TreeNode* root, int expectNumber)
-    {}
+    {
+        if (root == NULL) return vector<vector<int>>();
+
+        vector<vector<int>> result;
+        vector<int> path;
+        int currentSum = 0;
+        _findPath(root, expectNumber, path, currentSum, result);
+        return result;
+    }
 private: 
-    
+    void _findPath(TreeNode* root, int expectNumber, 
+                    vector<int>& path, int currentSum, 
+                    vector<vector<int>>& result)
+    {
+        currentSum += root->val;
+        path.push_back(root->val);
+
+        bool isLeaf = root->left == NULL && root->right == NULL;
+        if (currentSum == expectNumber && isLeaf)
+        {
+            result.push_back(path);
+        }
+
+        if (root->left != NULL)
+            _findPath(root->left, expectNumber, path, currentSum, result);
+        if (root->right != NULL)
+            _findPath(root->right, expectNumber, path, currentSum, result);
+
+        path.pop_back();
+    }
 public:
     // 非递归
     vector<vector<int> > FindPath_loop(TreeNode* root, int expectNumber) {
