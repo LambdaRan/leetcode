@@ -22,8 +22,15 @@ struct TreeNode {
 };
 
 class Solution {
+
+public: 
+    vector<vector<int> > FindPath(TreeNode* root, int expectNumber)
+    {}
+private: 
+    
 public:
-    vector<vector<int> > FindPath(TreeNode* root, int expectNumber) {
+    // 非递归
+    vector<vector<int> > FindPath_loop(TreeNode* root, int expectNumber) {
         if (root == NULL) return vector<vector<int>>();
 
         vector<vector<int>> result;
@@ -43,31 +50,39 @@ public:
 
             cur = deepVector.back();
 
-            // 当前节点的右孩子如果为空或者已经被访问，则访问当前节点
-            if (cur->right == NULL || (!rightStack.empty() && cur == rightStack.top())) // 到达叶结点
+            if (cur->left == NULL && cur->right == NULL)
             {
-                if (cur->left == NULL && cur->right == NULL)
+                if (sum == expectNumber)
                 {
-                    if (sum == expectNumber)
-                    {
-                        vector<int> onePath;
-                        for (TreeNode* v : deepVector)
-                            onePath.push_back(v->val);
-                        result.push_back(onePath);
-                    }                    
-                }
-                if (!rightStack.empty() && cur == rightStack.top())
+                    vector<int> onePath;
+                    for (TreeNode* v : deepVector)
+                        onePath.push_back(v->val);
+                    result.push_back(onePath);
+                } 
+
+                while (!deepVector.empty() && cur->right == NULL)
+                {
+                    deepVector.pop_back();
+                    sum -= cur->val;
+                    cur = deepVector.back();
+                }              
+                cur = NULL;                 
+            } 
+            else if (!rightStack.empty() && cur == rightStack.top())
+            {
+                while (!rightStack.empty() && cur == rightStack.top() && !deepVector.empty())
                 {
                     rightStack.pop();
+                    deepVector.pop_back();
+                    sum -= cur->val;
+                    cur = deepVector.back();
                 }
-                sum -= cur->val;
-                deepVector.pop_back();
                 cur = NULL;
             }
             else  
             {
                 rightStack.push(cur);
-                cur = cur->right;
+                cur = cur->right;                
             }
         }
 
