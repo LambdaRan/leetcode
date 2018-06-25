@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
-
+#include <vector>
 
 using namespace std;
 
@@ -15,9 +15,47 @@ using namespace std;
 */
 class Solution {
 public:
-    vector<string> Permutation(string str) {
-        
+    vector<string> Permutation(string str) 
+    {
+        if (str.empty()) return vector<string>();
+
+        vector<string> result;
+        _permutation(str, 0, str.size()-1, result);
+
+        return result;
     }
+private: 
+    void _permutation(string& str, size_t leftIndex, size_t rightIndex, vector<string>& result)
+    {
+        if (leftIndex == rightIndex)
+        {
+            result.push_back(str);
+        }
+        else  
+        {
+            for (int index = leftIndex; index < rightIndex; ++index)
+            {
+                if (leftIndex != index)
+                    swap(str[leftIndex], str[index]);
+                
+                _permutation(str, leftIndex+1, rightIndex, result);
+
+                if (leftIndex != index)
+                    swap(str[leftIndex], str[index]);    
+            }
+        }
+    }
+public:
+    vector<string> Permutation_Algorithm(string str) {
+        
+        if (str.empty()) return vector<string>();
+        vector<string> result;
+        do {
+            result.push_back(str);
+        } while (next_permutation(str.begin(), str.end()));
+        return result;
+    }
+
 };
 
 int main() 
@@ -25,7 +63,9 @@ int main()
     Solution s;
 
     std::cout << "method 1: \n";
-
+    vector<string> res = s.Permutation("abcde");
+    for (auto &v : res)
+        std::cout << v << "\n";
     std::cout << std::endl;
     return 0;
 }
