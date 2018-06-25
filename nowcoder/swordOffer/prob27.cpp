@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -19,29 +20,29 @@ public:
     {
         if (str.empty()) return vector<string>();
 
-        vector<string> result;
-        _permutation(str, 0, str.size()-1, result);
-
-        return result;
+        set<string> result;
+        sort(str.begin(), str.end());
+        _permutation(str, 0, str.size(), result);
+        return vector<string>(result.begin(), result.end());
     }
 private: 
-    void _permutation(string& str, size_t leftIndex, size_t rightIndex, vector<string>& result)
+    void _permutation(string& str, size_t left, size_t right, set<string>& result)
     {
-        if (leftIndex == rightIndex)
+        if (left == right)
         {
-            result.push_back(str);
+            result.insert(str);
         }
         else  
         {
-            for (int index = leftIndex; index < rightIndex; ++index)
+            for (size_t index = left; index < right; ++index)
             {
-                if (leftIndex != index)
-                    swap(str[leftIndex], str[index]);
+                if (left != index)
+                    swap(str[left], str[index]);
                 
-                _permutation(str, leftIndex+1, rightIndex, result);
+                _permutation(str, left+1, right, result);
 
-                if (leftIndex != index)
-                    swap(str[leftIndex], str[index]);    
+                if (left != index)
+                    swap(str[left], str[index]);    
             }
         }
     }
@@ -63,7 +64,7 @@ int main()
     Solution s;
 
     std::cout << "method 1: \n";
-    vector<string> res = s.Permutation("abcde");
+    vector<string> res = s.Permutation("abc");
     for (auto &v : res)
         std::cout << v << "\n";
     std::cout << std::endl;
