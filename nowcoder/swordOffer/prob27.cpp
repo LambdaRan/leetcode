@@ -3,7 +3,9 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <string>
 #include <set>
+#include <unordered_set>
 
 using namespace std;
 
@@ -15,13 +17,53 @@ using namespace std;
 *   输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。
 */
 class Solution {
+public: 
+    vector<string> Permutation(string str)
+    {
+        if (str.empty()) return vector<string>();
+        size_t strSize = str.size();
+        if (strSize == 1) 
+        {
+            vector<string> ret;
+            ret.push_back(str);
+            return ret;
+        } 
+        
+        set<string> result;
+        result.insert(str);
+        bool loop = true;
+        while (loop)
+        {
+            size_t head = strSize - 1;
+            while (true)
+            {
+                size_t tailOne = head;
+                if (str[--head] < str[tailOne])
+                {
+                    size_t tailTwo = strSize;
+                    while (!(str[head] < str[--tailTwo]));
+
+                    std::swap(str[head], str[tailTwo]);
+                    std::reverse(str.begin()+tailOne, str.end());
+                    result.insert(str);
+                    break;
+                }
+                if (head == 0)
+                {
+                    std::reverse(str.begin(), str.end());
+                    loop = false;
+                    break;
+                }
+            }
+        }
+        return vector<string>(result.begin(), result.end());
+    }
 public:
-    vector<string> Permutation(string str) 
+    vector<string> Permutation_Recursive(string str) 
     {
         if (str.empty()) return vector<string>();
 
         set<string> result;
-        sort(str.begin(), str.end());
         _permutation(str, 0, str.size(), result);
         return vector<string>(result.begin(), result.end());
     }
@@ -64,7 +106,7 @@ int main()
     Solution s;
 
     std::cout << "method 1: \n";
-    vector<string> res = s.Permutation("abc");
+    vector<string> res = s.Permutation("a");
     for (auto &v : res)
         std::cout << v << "\n";
     std::cout << std::endl;
