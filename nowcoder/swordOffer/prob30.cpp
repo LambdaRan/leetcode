@@ -26,8 +26,7 @@ public:
         for_each(std::next(array.begin()), array.end(), 
             [&maxSum, &curSum](const int value) -> void
             { 
-                if (curSum <= 0) curSum = value;
-                else  curSum += value;
+                curSum = curSum<=0 ? value : curSum+value;
                 maxSum = std::max({maxSum, value, curSum});
             });
 
