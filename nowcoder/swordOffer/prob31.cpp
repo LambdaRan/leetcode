@@ -17,7 +17,33 @@ class Solution {
 public:
     int NumberOf1Between1AndN_Solution(int n)
     {
-    
+        size_t iCount = 0;
+        size_t iFactor = 1;
+        size_t iLowerNum = 0;
+        size_t iCurrNum = 0;
+        size_t iHigherNum = 0;
+
+        while (n / iFactor != 0)
+        {
+            iLowerNum = n - (n/iFactor) * iFactor;
+            iCurrNum = (n/iFactor) % 10;
+            iHigherNum = n / (iFactor*10);
+
+            switch(iCurrNum)
+            {
+                case 0:
+                    iCount += iHigherNum * iFactor;
+                    break;
+                case 1:
+                    iCount += iHigherNum * iFactor + iLowerNum + 1;
+                    break;
+                default:
+                    iCount += (iHigherNum + 1) * iFactor;
+                    break;
+            }
+            iFactor *= 10;
+        }
+        return iCount;
     }
 };
 int main() 
