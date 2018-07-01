@@ -14,8 +14,24 @@ using namespace std;
 */
 class Solution {
 public:
-    string PrintMinNumber(vector<int> numbers) {
+    string PrintMinNumber(vector<int>& numbers) {
         
+        if (numbers.empty()) return string();
+        if (numbers.size() == 1) return std::to_string(numbers[0]);
+
+        std::sort(numbers.begin(), numbers.end(), [](int v1, int v2) -> bool{
+            std::string str1 = std::to_string(v1);
+            std::string str2 = std::to_string(v2);
+            return std::string((str1+str2)) < std::string((str2+str1));
+        });
+
+        std::string result;
+        // for_each(numbers.begin(), numbers.end(), [&result](int value){
+        //     result += std::to_string(value);
+        // });
+        for(int value : numbers)
+            result += std::to_string(value);
+        return result;
     }
 };
 
@@ -23,8 +39,10 @@ int main()
 {
     Solution s;
 
+    vector<int> vec = {3, 32, 321};
     std::cout << "method 1: \n";
-
+    std::cout << "321323 --> " << s.PrintMinNumber(vec);
     std::cout << std::endl;
+
     return 0;
 }
