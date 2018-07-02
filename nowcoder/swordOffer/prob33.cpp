@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <string>
 
 using namespace std;
 
@@ -15,43 +14,67 @@ using namespace std;
 */
 class Solution {
 public:
-    int GetUglyNumber_Solution(int index) {
-        
-        int par[] = {1,2,3,4,5,6,8,9,10};
-        if (index <= sizeof(par)/sizeof(par[0]))
-            return par[index-1];
-        
-        int count = sizeof(par)/sizeof(par[0]);
-        int start = ++par[count-1];
-        int lastUglyNumber = par[count-1];
-        while (count < index)
-        {
-            if (isUglyNumber(start))
-            {
-                ++count;
-                lastUglyNumber = start;
-            }
-            ++start;
-        }
-        return lastUglyNumber;
-    }
-private: 
-    bool isUglyNumber(int value)
+    int GetUglyNumber_Solution(int index) 
     {
-        int base[] = {2,5,3};
-        for (int i = 0; i < 3; ++i)
+        if (index < 7) return index;
+        std::vector<int> oldUglyNumber(index);
+        oldUglyNumber[0] = 1;
+        int index2 = 0;
+        int index3 = 0;
+        int index5 = 0;
+
+        for (int i = 1; i < index; ++i)
         {
-            int quotient = value / base[i];
-            int remain = value % base[i];
-            while (remain == 0)
-            {
-                value = quotient;
-                quotient = value /base[i];
-                remain = value % base[i];
-            }
+            oldUglyNumber[i] = std::min({oldUglyNumber[index2] * 2,
+                                        oldUglyNumber[index3] * 3,
+                                        oldUglyNumber[index5] * 5});
+            if (oldUglyNumber[i] == oldUglyNumber[index2] * 2)
+                ++index2;
+            if (oldUglyNumber[i] == oldUglyNumber[index3] * 3)
+                ++index3;
+            if (oldUglyNumber[i] == oldUglyNumber[index5] * 5)
+                ++index5;
         }
-        return value == 1;
+        return oldUglyNumber[index-1];
     }
+    // time out
+//     int GetUglyNumber_Solution(int index) {
+        
+//         int par[] = {1,2,3,4,5,6,8,9,10};
+//         if (index <= sizeof(par)/sizeof(par[0]))
+//             return par[index-1];
+        
+//         int count = sizeof(par)/sizeof(par[0]);
+//         int start = ++par[count-1];
+//         int lastUglyNumber = par[count-1];
+//         while (count < index)
+//         {
+//             if (isUglyNumber(start))
+//             {
+//                 ++count;
+//                 lastUglyNumber = start;
+//             }
+//             ++start;
+//         }
+//         return lastUglyNumber;
+//     }
+// private: 
+//     bool isUglyNumber(int value)
+//     {
+//         int base[] = {2,5,3};
+//         for (int i = 0; i < 3; ++i)
+//         {
+//             int quotient = value / base[i];
+//             int remain = value % base[i];
+//             while (remain == 0)
+//             {
+//                 value = quotient;
+//                 quotient = value /base[i];
+//                 remain = value % base[i];
+//             }
+//         }
+//         return value == 1;
+//     }
 };
 
 int main() 
