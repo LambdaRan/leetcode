@@ -38,43 +38,43 @@ public:
         return oldUglyNumber[index-1];
     }
     // time out
-//     int GetUglyNumber_Solution(int index) {
+    int GetUglyNumber_Solution_laji(int index) {
         
-//         int par[] = {1,2,3,4,5,6,8,9,10};
-//         if (index <= sizeof(par)/sizeof(par[0]))
-//             return par[index-1];
+        int par[] = {1,2,3,4,5,6,8,9,10};
+        if (index <= sizeof(par)/sizeof(par[0]))
+            return par[index-1];
         
-//         int count = sizeof(par)/sizeof(par[0]);
-//         int start = ++par[count-1];
-//         int lastUglyNumber = par[count-1];
-//         while (count < index)
-//         {
-//             if (isUglyNumber(start))
-//             {
-//                 ++count;
-//                 lastUglyNumber = start;
-//             }
-//             ++start;
-//         }
-//         return lastUglyNumber;
-//     }
-// private: 
-//     bool isUglyNumber(int value)
-//     {
-//         int base[] = {2,5,3};
-//         for (int i = 0; i < 3; ++i)
-//         {
-//             int quotient = value / base[i];
-//             int remain = value % base[i];
-//             while (remain == 0)
-//             {
-//                 value = quotient;
-//                 quotient = value /base[i];
-//                 remain = value % base[i];
-//             }
-//         }
-//         return value == 1;
-//     }
+        int count = sizeof(par)/sizeof(par[0]);
+        int start = ++par[count-1];
+        int lastUglyNumber = par[count-1];
+        while (count < index)
+        {
+            if (isUglyNumber(start))
+            {
+                ++count;
+                lastUglyNumber = start;
+            }
+            ++start;
+        }
+        return lastUglyNumber;
+    }
+private: 
+    bool isUglyNumber(int value)
+    {
+        int base[] = {2,5,3};
+        for (int i = 0; i < 3; ++i)
+        {
+            int quotient = value / base[i];
+            int remain = value % base[i];
+            while (remain == 0)
+            {
+                value = quotient;
+                quotient = value /base[i];
+                remain = value % base[i];
+            }
+        }
+        return value == 1;
+    }
 };
 
 int main() 

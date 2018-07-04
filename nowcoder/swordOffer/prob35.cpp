@@ -26,7 +26,48 @@ using namespace std;
 class Solution {
 public:
     int InversePairs(vector<int> data) {
-        
+        if (data.empty()) return 0;
+        vector<int> dummy(data);
+
+        size_t count = _inversePairsMerge(data, dummy, 0, static_cast<int>(data.size()-1));
+        return static_cast<int>(count % 1000000007);
+    }
+private: 
+    size_t _inversePairsMerge(vector<int> &data, vector<int> &dummy, int start, int end)
+    {
+        if(start == end)
+        {
+            dummy[start] = data[start];
+            return 0;
+        }  
+
+        int length = (end - start) / 2;
+        size_t leftCount = _inversePairsMerge(dummy, data, start, start+length);
+        size_t rightCount = _inversePairsMerge(dummy, data, start+length+1, end);
+
+        int i = start + length;
+        int j = end;
+        int indexdummy = end;
+        size_t curCount = 0;
+        while ( i >= start && j >= start+length+1)
+        {
+            if(data[i] > data[j]) // 左边最后元素大于右边最后元素
+            {
+                dummy[indexdummy--] = data[i--];
+                curCount += j - start - length;
+            }
+            else  
+            {
+                dummy[indexdummy--] = data[j--];
+            }
+        }
+        for(; i >= start; --i)
+            dummy[indexdummy--] = data[i];
+
+        for(; j >= start+length+1; --j)
+            dummy[indexdummy--] = data[j];
+
+        return leftCount + rightCount + curCount;       
     }
 };
 
@@ -34,8 +75,9 @@ int main()
 {
     Solution s;
 
+    vector<int> vec = {1,2,3,4,5,6,7,0};
     std::cout << "method 1: \n";
-
+    std::cout << "count: 7 --> " << s.InversePairs(vec);
     std::cout << std::endl;
     return 0;
 }
