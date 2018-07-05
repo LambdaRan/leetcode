@@ -19,6 +19,22 @@ public:
         RetTypePair ret = std::equal_range(data.begin(), data.end(), k);
         return static_cast<int>(ret.second - ret.first);
     }
+    // //使用STL算法count 循序查找O(n)
+    // int GetNumberOfK(vector<int> data, int k) {
+    //     return count(data.begin(), data.end(), k);
+    // }
+    // //利用STL的multimap容器底层以红黑树为基础,构造成本O(n),查询成本O(log n)
+    // int GetNumberOfK(vector<int> data, int k) {
+    //     multiset<int> msData(data.begin(), data.end());
+    //     return msData.count(k);
+    // }
+
+    // //利用STL库函数lower_bound()和upperBound(),O(log n)
+    // int GetNumberOfK(vector<int> data ,int k) {
+    //     auto iter1 = lower_bound(data.begin(), data.end(), k);
+    //     auto iter2 = upper_bound(data.begin(), data.end(), k);
+    //     return static_cast<int>(iter2 - iter1);
+    // }
 };
 
 int main() 

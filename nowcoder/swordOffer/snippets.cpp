@@ -64,3 +64,44 @@ std::uniform_int_distribution<> dis(0, 9);
 std::vector<int> v1(10), v2(10);
 std::generate(v1.begin(), v1.end(), std::bind(dis, std::ref(mt)));
 std::generate(v2.begin(), v2.end(), std::bind(dis, std::ref(mt)));
+
+template<class ForwardIt, class T>
+ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value)
+{
+    ForwardIt it;
+    typename std::iterator_traits<ForwardIt>::difference_type count, step;
+    count = std::distance(first, last);
+
+    while (count > 0) {
+        it = first; 
+        step = count / 2; 
+        std::advance(it, step);
+        if (*it < value) {
+            first = ++it; 
+            count -= step + 1; 
+        }
+        else
+            count = step;
+    }
+    return first;
+}
+template<class ForwardIt, class T>
+ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value)
+{
+    ForwardIt it;
+    typename std::iterator_traits<ForwardIt>::difference_type count, step;
+    count = std::distance(first,last);
+
+    while (count > 0) {
+        it = first; 
+        step = count / 2; 
+        std::advance(it, step);
+        if (!(value < *it)) {
+            first = ++it;
+            count -= step + 1; // 注意 count = count - (step + 1);
+        }
+        else
+            count = step;
+    }
+    return first;
+}
