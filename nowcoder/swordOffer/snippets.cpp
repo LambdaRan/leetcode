@@ -2,6 +2,15 @@
 单链表创建 prob16
 true false prob01
 
+
+// 递归
+// 分儿治之
+// 快慢指针
+// 双指针（滑动窗口）
+// 动态规划
+
+
+
 // 打印消息
 std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
 

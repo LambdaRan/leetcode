@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <string>
+#include <utility>
 
 using namespace std;
 
@@ -23,6 +23,35 @@ class Solution {
 public:
     bool IsBalanced_Solution(TreeNode* pRoot) {
 
+        std::pair<int, bool> result = _heightAndIsBalanced(pRoot);
+        return result.second;
+    }
+private: 
+    std::pair<int, bool> _heightAndIsBalanced(TreeNode* node)
+    {
+        if (node == NULL) return std::make_pair(0, true);
+
+        std::pair<int, bool> leftHeight = _heightAndIsBalanced(node->left);
+        if (!leftHeight.second) 
+            return leftHeight;
+        std::pair<int, bool> rightHeight = _heightAndIsBalanced(node->right);
+        if (!rightHeight.second)
+            return rightHeight;
+        int maxDepth = 0;
+        int diff = 0;
+        if (leftHeight.first < rightHeight.first)
+        {
+            maxDepth = rightHeight.first;
+            diff = rightHeight.first - leftHeight.first;
+        }
+        else  
+        {
+            maxDepth = leftHeight.first;
+            diff = leftHeight.first - rightHeight.first;
+        }
+        if (diff > 1) return std::make_pair(0, false);
+
+        return std::make_pair(maxDepth+1, true);
     }
 };
 int main() 
