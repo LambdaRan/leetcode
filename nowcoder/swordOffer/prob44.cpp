@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <stack>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -26,9 +27,51 @@ public:
         {
             if (str[fastIndex] == ' ')
             {
-                reverseWordStack.push(std::string(std::next(str.begin(), slowIndex)), std::next(str.begin(), fastIndex));
+                std::string words(std::next(str.begin(), slowIndex), std::next(str.begin(), fastIndex));
+                reverseWordStack.push(words);
+                reverseWordStack.push(std::string(" "));
+                ++fastIndex;
+                slowIndex = fastIndex;
+            }
+            else  
+            {
+                ++fastIndex;
             }
         }
+        if (slowIndex < fastIndex && fastIndex == str.size())
+        {
+            std::string words(std::next(str.begin(), slowIndex), str.end());
+            reverseWordStack.push(words);            
+        }
+        std::string result;
+        while (!reverseWordStack.empty())
+        {
+            result += reverseWordStack.top();
+            reverseWordStack.pop();
+        }
+        return result;
+    }
+    // 使用内存IO在牛客网不能使用（段错误）
+    string ReverseSentence1(string str) {
+        if (str.empty()) return str;
+        std::stack<std::string> reverseWordStack;
+        // 使用内存IO流处理 string
+        std::istringstream allWords(str);
+        std::string word;
+        while (allWords >> word)
+        {
+            reverseWordStack.push(word);
+            reverseWordStack.push(std::string(" "));
+        }
+        // 弹出栈顶多余的一个空格
+        reverseWordStack.pop(); 
+        std::ostringstream result;
+        while (!reverseWordStack.empty())
+        {
+            result << reverseWordStack.top();
+            reverseWordStack.pop();
+        }
+        return result.str();
     }
 };
 
@@ -36,7 +79,9 @@ int main()
 {
     Solution s;
 
-    std::cout << "method 1: \n";
+    string str = "student. a am I";
+
+    std::cout << s.ReverseSentence(str);
 
     std::cout << std::endl;
     return 0;

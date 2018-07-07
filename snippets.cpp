@@ -1,15 +1,21 @@
 
-单链表创建 prob16
-true false prob01
 
 
-// 递归
-// 分儿治之
-// 快慢指针
-// 双指针（滑动窗口）
-// 动态规划
 
-
+// 从标准输入读入一行
+while (getline(cin, line))
+{
+    TODO
+}
+// 牛客不能使用
+// 使用内存IO流获取string中的每个单词
+//#include <sstream>
+std::istringstream allWords(string);
+std::string word;
+while (allWords >> word)
+{
+    TODO
+}
 
 // 打印消息
 std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
