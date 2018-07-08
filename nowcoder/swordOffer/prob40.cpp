@@ -12,10 +12,10 @@ using namespace std;
 *
 */
 
-TODO 看编程之美，有一道相仿的题（1.5 找出故障机器）
+// 同一个数的异或为0
 class Solution {
 public:
-    void FindNumsAppearOnce(vector<int>& data,int* num1,int *num2) {
+    void FindNumsAppearOnce_v1(vector<int>& data,int* num1,int *num2) {
 
         if (data.size() < 2) return;
         *num1 = 0; *num2 = 0;
@@ -24,7 +24,7 @@ public:
         {
             ++dataUnorderMap[v];
         }
-        std::cout << "next find" << "\n";
+        //std::cout << "next find" << "\n";
         for (const std::pair<int, int>& element : dataUnorderMap)
         {
             if (element.second == 1)
@@ -35,6 +35,38 @@ public:
                     *num2 = element.first;
             }
         };
+    }
+    void FindNumsAppearOnce(vector<int>& data,int* num1,int *num2) {
+        if (data.size() < 2) return;
+        int resultExclusiveOR = 0;
+        std::for_each(data.begin(), data.end(), [&resultExclusiveOR](int value){
+            resultExclusiveOR ^= value;
+        });
+
+        size_t indexOf1 = _findFirstBitIs1(resultExclusiveOR);
+        *num1 = *num2 = 0;
+        std::for_each(data.begin(), data.end(), [=, &num1, &num2](int value){
+            if (_isBit1(value, indexOf1))
+                *num1 ^= value;
+            else  
+                *num2 ^= value;
+        });
+    }
+private:
+    size_t _findFirstBitIs1(int num)
+    {
+        size_t indexBit = 0;
+        while ((num & 1) == 0 && (indexBit < 8 * sizeof(int))) 
+        {
+            num = num >> 1;
+            ++indexBit;
+        }
+        return indexBit;
+    }
+    bool _isBit1(int num, size_t indexBit)
+    {
+        num = num >> indexBit;
+        return num & 1;
     }
 };
 

@@ -80,9 +80,11 @@ int main()
     Solution s;
 
     string str = "student. a am I";
-
-    std::cout << s.ReverseSentence(str);
-
+    string str1 = "";
+    string str2 = "lambda";
+    std::cout << s.ReverseSentence(str) << "\n";
+    std::cout << s.ReverseSentence(str1) << "\n";
+    std::cout << s.ReverseSentence(str2) << "\n";
     std::cout << std::endl;
     return 0;
 }
