@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <unordered_set>
 
 using namespace std;
 
@@ -22,17 +23,40 @@ public:
     //        duplication: (Output) the duplicated number in the array number
     // Return value:       true if the input is valid, and there are some duplications in the array number
     //                     otherwise false
+
+    // 方法一：使用set
+    // 方法二：先排序
     bool duplicate(int numbers[], int length, int* duplication) {
-        
+        if (length <= 1) return false;
+
+        std::unordered_set<int> onlyValueSet({numbers[0]});
+        for (int i = 1; i < length; ++i)
+        {
+            if (onlyValueSet.find(numbers[i]) != onlyValueSet.end())
+            {
+                *duplication = numbers[i];
+                return true;
+            }
+            else  
+            {
+                onlyValueSet.insert(numbers[i]);
+            }
+        }
+        return false;
     }
 };
 
+std::string boolToString(bool input) 
+{
+    return input ? "True" : "False";
+}
 int main() 
 {
     Solution s;
-
-    std::cout << "method 1: \n";
-
+    std::vector<int> vec1 = {2,1,3,1,4};
+    int result = 0;
+    std::cout << "find: " << boolToString(s.duplicate(vec1.data(), static_cast<int>(vec1.size()), &result)) << "\n";
+    std::cout << "deplicate value: " << result << "\n";
     std::cout << std::endl;
     return 0;
 }
