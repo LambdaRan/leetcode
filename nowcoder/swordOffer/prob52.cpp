@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <string.h>
 
 using namespace std;
 
@@ -14,17 +15,52 @@ using namespace std;
 */
 class Solution {
 public:
-    bool match(char* str, char* pattern)
+    bool match(char* s, char* p)
     {
-    
+        if (*p=='\0') {
+            return *s == '\0';
+        }
+        //p's length 1 is special case 
+        if (*(p+1) == '\0' || *(p+1) !='*' ) {
+            if (*s=='\0' || ( *s != *p && *p !='.' )) {
+                return false;
+            }
+            return match(s+1, p+1);
+        }
+        int len = static_cast<int>(strlen(s));
+        int i = -1;
+        while (i < len && (i < 0 || *p=='.' || *p==*(s+i)) ){
+            if (match(s+i+1, p+2)) {
+                return true;
+            }
+            i++;
+        } 
+        return false; 
     }
 };
-
+std::string boolToString(bool input) {
+    return input ? "true" : "false";
+}
 int main() 
 {
     Solution s;
 
     std::cout << "method 1: \n";
+    std::cout << "isMatch(\"aa\",\"a\"):   false <------> " << boolToString(s.match("aa","a")) << "\n";
+    std::cout << "isMatch(\"aa\",\"aa\"):  true  <------> " << boolToString(s.match("aa","aa")) << "\n";
+    std::cout << "isMatch(\"aaa\",\"aa\"): false <------> " << boolToString(s.match("aaa","aa")) << "\n";
+    std::cout << "isMatch(\"aa\",\"a*\"):  true  <------> " << boolToString(s.match("aa","a*")) << "\n";
+    std::cout << "isMatch(\"aa\",\".*\"):  true  <------> " << boolToString(s.match("aa",".*")) << "\n";
+    std::cout << "isMatch(\"ab\",\".*\"):  true  <------> " << boolToString(s.match("ab",".*")) << "\n";
+    std::cout << "isMatch(\"aab\",\"cc*a*b\"): true <------> " << boolToString(s.match("aab","c*a*b")) << "\n";
+    // std::cout << "method 2: \n";
+    // std::cout << "isMatch(\"aa\",\"a\"):   false <------> " << boolToString(s.isMatch2("aa","a")) << "\n";
+    // std::cout << "isMatch(\"aa\",\"aa\"):  true  <------> " << boolToString(s.isMatch2("aa","aa")) << "\n";
+    // std::cout << "isMatch(\"aaa\",\"aa\"): false <------> " << boolToString(s.isMatch2("aaa","aa")) << "\n";
+    // std::cout << "isMatch(\"aa\",\"a*\"):  true  <------> " << boolToString(s.isMatch2("aa","a*")) << "\n";
+    // std::cout << "isMatch(\"aa\",\".*\"):  true  <------> " << boolToString(s.isMatch2("aa",".*")) << "\n";
+    // std::cout << "isMatch(\"ab\",\".*\"):  true  <------> " << boolToString(s.isMatch2("ab",".*")) << "\n";
+    // std::cout << "isMatch(\"aab\",\"cc*a*b\"): true <------> " << boolToString(s.isMatch2("aab","c*a*b")) << "\n";
 
     std::cout << std::endl;
     return 0;
