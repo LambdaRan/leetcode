@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <string>
+#include <queue>
 
 using namespace std;
 
@@ -18,17 +18,27 @@ using namespace std;
 class Solution
 {
 public:
+	Solution()
+		: charQueue_(), charCount_(128)
+	{}
   //Insert one char from stringstream
     void Insert(char ch)
     {
-         
+        ++charCount_[ch - '\0'];
+		if (charCount_[ch - '\0'] == 1)
+			charQueue_.push(ch);
     }
   //return the first appearence once char in current stringstream
     char FirstAppearingOnce()
     {
-    
+		while (!charQueue_.empty() && charCount_[charQueue_.front() - '\0'] >= 2)
+			charQueue_.pop();
+		if (charQueue_.empty()) return '#';
+		return charQueue_.front();
     }
-
+private:
+	std::queue<char> charQueue_;
+	std::vector<size_t> charCount_;
 };
 
 int main() 
