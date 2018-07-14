@@ -1,8 +1,8 @@
 
 #include <iostream>
 #include <algorithm>
-#include <vector>
-#include <string>
+
+#include <unordered_set>
 
 using namespace std;
 
@@ -23,7 +23,18 @@ class Solution {
 public:
     ListNode* EntryNodeOfLoop(ListNode* pHead)
     {
-
+        if (pHead == NULL) return NULL;
+        std::unordered_set<ListNode*> visitedNodeSet_;
+        ListNode* cur = pHead;
+        while (cur)
+        {
+            if (visitedNodeSet_.find(cur) != visitedNodeSet_.end())
+                return cur;
+            else  
+                visitedNodeSet_.insert(cur);
+            cur = cur->next;
+        }
+        return NULL;
     }
 };
 
