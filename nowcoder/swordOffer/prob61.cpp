@@ -1,8 +1,10 @@
 
 #include <iostream>
 #include <algorithm>
-#include <vector>
 #include <string>
+#include <sstream>
+
+#include <string.h>
 
 using namespace std;
 
@@ -20,16 +22,47 @@ struct TreeNode {
     {}
 };
 
-class Solution {
-public:
-    char* Serialize(TreeNode *root) {    
-        
+class Solution
+{
+  public:
+    string sHelper(TreeNode* node)
+    {
+        if (node == NULL)
+            return "#";
+        return std::to_string(node->val) + "," +
+               sHelper(node->left) + "," +
+               sHelper(node->right);
     }
-    
-    TreeNode* Deserialize(char *str) {
-    
+    char* Serialize(TreeNode* root)
+    {
+        string s = sHelper(root);
+        char *ret = new char[s.length() + 1];
+        strcpy(ret, const_cast<char *>(s.c_str()));
+        return ret;
+    }
+    TreeNode* dHelper(stringstream &ss)
+    {
+        string str;
+        std::getline(ss, str, ',');
+        if (str == "#")
+            return NULL;
+        else
+        {
+            TreeNode *node = new TreeNode(stoi(str));
+            node->left = dHelper(ss);
+            node->right = dHelper(ss);
+            return node;
+        }
+    }
+    TreeNode* Deserialize(char* str)
+    {
+        stringstream ss(str);
+        delete[] str;
+        str = NULL;
+        return dHelper(ss);
     }
 };
+
 
 int main() 
 {
