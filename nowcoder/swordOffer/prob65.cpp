@@ -3,6 +3,10 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <utility>
+#include <stack>
+
+#include <string.h>
 
 using namespace std;
 
@@ -19,9 +23,101 @@ class Solution {
 public:
     bool hasPath(char* matrix, int rows, int cols, char* str)
     {
-    
-    }
+        if (matrix == NULL || str == NULL) return false;
+        int rowsIndex = 0;
+        int closIndex = 0;
+        int strIndex = 0;
+        int strSize = static_cast<int>(::strlen(str));
+        std::stack<std::pair<int, int>> matchPoint;
+        std::vector<std::vector<int>> isVist(rows, std::vector<int>(cols, 0));
+        while (true)
+        {
+            for (int i = rowsIndex; i < rows; ++i)
+            {
+                for (int j = closIndex; j < cols; ++j)
+                {
+                    if (matrix[i][j] == str[strIndex++])
+                    {
+                        rowsIndex = i;
+                        closIndex = j;
+                        matchPoint.push(std::make_pair(i,j));
+                        isVist[i][j] = 1;
+                        break;
+                    }
+                }
+            }
+            if (matchPoint.empty()) return false;
 
+            while (!matchPoint.empty())
+            {
+                if (strIndex == strSize) return true;
+
+                if (rowsIndex-1 >= 0) // 上
+                {
+                    if (!isVist[rowsIndex-1][closIndex] &&
+                        matrix[rowsIndex-1][closIndex] == str[strIndex])
+                    {
+                        --rowsIndex;
+                        ++strIndex;
+                        matchPoint.push(std::make_pair(rowsIndex, closIndex));
+                        isVist[rowsIndex][closIndex] = 1;
+                        continue;
+                    }
+                    isVist[rowsIndex-1][closIndex] = 1;
+                }
+
+                if (closIndex+1 < cols) // 右
+                {
+                    if (!isVist[rowsIndex][closIndex+1] &&
+                        matrix[rowsIndex][closIndex+1] == str[strIndex])
+                    {
+                        ++closIndex;
+                        ++strIndex;
+                        matchPoint.push(std::make_pair(rowsIndex, closIndex));                       
+                        isVist[rowsIndex][closIndex] = 1;
+                        continue;                        
+                    }
+                    isVist[rowsIndex][closIndex+1] = 1;
+                }
+
+                if (rowsIndex+1 < rows) // 下
+                {
+                    if (!isVist[rowsIndex+1][closIndex] &&
+                        matrix[rowsIndex+1][closIndex] == str[strIndex])
+                    {
+                        ++rowsIndex;
+                        ++strIndex;
+                        matchPoint.push(std::make_pair(rowsIndex, closIndex));                       
+                        isVist[rowsIndex][closIndex] = 1;
+                        continue;                         
+                    }
+                    isVist[rowsIndex+1][closIndex] = 1;
+                }
+
+                if (closIndex-1 >= 0)
+                {
+                    if (!isVist[rowsIndex][closIndex-1] && 
+                        matrix[rowsIndex][closIndex-1] == str[strIndex])
+                    {
+                        --closIndex;
+                        ++strIndex;
+                        matchPoint.push(std::make_pair(rowsIndex, closIndex));                       
+                        isVist[rowsIndex][closIndex] = 1;
+                        continue;  
+                    }
+                    isVist[rowsIndex][closIndex-1] = 1;
+                }
+
+                // 回溯
+                std::pair<int, int> prePoint = matchPoint.top();
+                matchPoint.pop();
+                rowsIndex = prePoint.first;
+                closIndex = prePoint.second;
+                --strSize;
+            }
+            isVist.clear();
+        }    
+    }
 
 };
 
