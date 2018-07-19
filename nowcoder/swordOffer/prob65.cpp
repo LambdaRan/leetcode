@@ -19,114 +19,195 @@ using namespace std;
 * 但是矩阵中不包含"abcb"路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。
 *
 */
-class Solution {
-public:
-    bool hasPath(char* matrix, int rows, int cols, char* str)
+class Solution2
+{
+  public:
+    bool hasPath(const char *matrix, int rows, int cols, const char *str)
     {
-        if (matrix == NULL || str == NULL) return false;
+        if (matrix == NULL || rows < 1 || cols < 1 || str == NULL)
+            return false;
+        bool *flag = new bool[rows * cols];
+        memset(flag, false, rows * cols);
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                if (matchPoint(matrix, rows, cols, i, j, str, 0, flag))
+                {
+                    return true;
+                }
+            }
+        }
+        delete[] flag;
+        return false;
+    }
+    /*参数说明*/
+    bool matchPoint(const char *matrix, int rows, int cols, 
+                int i, int j, const char *str, int k, bool *flag)
+    {
+        //因为是一维数组存放二维的值，index值就是相当于二维数组的（i，j）在一维数组的下标
+        int index = i * cols + j;
+        //flag[index]==true,说明被访问过了，那么也返回true;
+        if (i < 0 || i >= rows || j < 0 || j >= cols || matrix[index] != str[k] || flag[index] == true)
+            return false;
+        //字符串已经查找结束，说明找到该路径了
+        if (str[k + 1] == '\0')
+            return true;
+        //向四个方向进行递归查找,向左，向右，向上，向下查找
+        flag[index] = true; //标记访问过
+        if (matchPoint(matrix, rows, cols, i - 1, j, str, k + 1, flag)
+              || matchPoint(matrix, rows, cols, i + 1, j, str, k + 1, flag)
+              || matchPoint(matrix, rows, cols, i, j - 1, str, k + 1, flag)
+              || matchPoint(matrix, rows, cols, i, j + 1, str, k + 1, flag))
+        {
+            return true;
+        }
+        flag[index] = false;
+        return false;
+    }
+};
+class Solution
+{
+  public:
+    bool hasPath(const char *matrix, int rows, int cols, const char *str)
+    {
+        if (matrix == NULL || str == NULL)
+            return false;
         int rowsIndex = 0;
         int closIndex = 0;
         int strIndex = 0;
         int strSize = static_cast<int>(::strlen(str));
-        std::stack<std::pair<int, int>> matchPoint;
+        int matrixSize = static_cast<int>(::strlen(matrix));
+        if (strSize > matrixSize)
+            return false;
+
+        //std::stack<std::pair<int, int>> matchPoint;
         std::vector<std::vector<int>> isVist(rows, std::vector<int>(cols, 0));
-        while (true)
+        std::stack<std::pair<int, int>> matchPoint;
+        for (int i = rowsIndex; i < rows; ++i)
         {
-            for (int i = rowsIndex; i < rows; ++i)
+            for (int j = closIndex; j < cols; ++j)
             {
-                for (int j = closIndex; j < cols; ++j)
+                if (!isVist[i][j] && matrix[i * cols + j] == str[strIndex])
                 {
-                    if (matrix[i][j] == str[strIndex++])
+                    // std::cout << "find: " << matrix[i * cols + j] << " "
+                    //     << str[strIndex] << " " << i << " " << j << std::endl;
+                    rowsIndex = i;
+                    closIndex = j;
+                    matchPoint.push(std::make_pair(i, j));
+                    isVist[i][j] = 1;
+                    ++strIndex;
+                    while (!matchPoint.empty())
                     {
-                        rowsIndex = i;
-                        closIndex = j;
-                        matchPoint.push(std::make_pair(i,j));
-                        isVist[i][j] = 1;
-                        break;
+                        //std::cout << "strIndex: " << strIndex << " strSize: " << strSize << std::endl;
+                        //if (strIndex == strSize)
+                        //    return true;
+                        if (str[strIndex] == '\0') return true;
+                        if (rowsIndex - 1 >= 0) // 上
+                        {
+                            if (!isVist[rowsIndex - 1][closIndex] &&
+                                matrix[(rowsIndex - 1) * cols + closIndex] == str[strIndex])
+                            {
+                                //std::cout << "1find: " << matrix[(rowsIndex-1)*cols+closIndex] << " "
+                                //    << str[strIndex] << " " << (rowsIndex-1) << " " << closIndex << std::endl;
+                                --rowsIndex;
+                                ++strIndex;
+                                matchPoint.push(std::make_pair(rowsIndex, closIndex));
+                                isVist[rowsIndex][closIndex] = 1;
+                                continue;
+                            }
+                            //isVist[rowsIndex-1][closIndex] = 1;
+                        }
+
+                        if (closIndex + 1 < cols) // 右
+                        {
+                            if (!isVist[rowsIndex][closIndex + 1] &&
+                                matrix[rowsIndex * cols + closIndex + 1] == str[strIndex])
+                            {
+                                //std::cout << "2find: " << matrix[rowsIndex*cols+closIndex+1] << " "
+                                //    << str[strIndex] << " " << rowsIndex << " " << (closIndex+1) << std::endl;
+                                ++closIndex;
+                                ++strIndex;
+                                matchPoint.push(std::make_pair(rowsIndex, closIndex));
+                                isVist[rowsIndex][closIndex] = 1;
+                                continue;
+                            }
+                            //isVist[rowsIndex][closIndex+1] = 1;
+                        }
+
+                        if (rowsIndex + 1 < rows) // 下
+                        {
+                            if (!isVist[rowsIndex + 1][closIndex] &&
+                                matrix[(rowsIndex + 1) * cols + closIndex] == str[strIndex])
+                            {
+                                //std::cout << "3find: " << matrix[(rowsIndex+1)*cols+closIndex] << " "
+                                //    << str[strIndex] << " " << (rowsIndex+1) << " " << closIndex << std::endl;
+                                ++rowsIndex;
+                                ++strIndex;
+                                matchPoint.push(std::make_pair(rowsIndex, closIndex));
+                                isVist[rowsIndex][closIndex] = 1;
+                                continue;
+                            }
+                            //isVist[rowsIndex+1][closIndex] = 1;
+                        }
+
+                        if (closIndex - 1 >= 0)
+                        {
+                            if (!isVist[rowsIndex][closIndex - 1] &&
+                                matrix[rowsIndex * cols + closIndex - 1] == str[strIndex])
+                            {
+                                //std::cout << "4find: " << matrix[rowsIndex*cols+closIndex-1] << " "
+                                //    << str[strIndex] << " " << rowsIndex << " " << (closIndex-1)<< std::endl;
+                                --closIndex;
+                                ++strIndex;
+                                matchPoint.push(std::make_pair(rowsIndex, closIndex));
+                                isVist[rowsIndex][closIndex] = 1;
+                                continue;
+                            }
+                            //isVist[rowsIndex][closIndex-1] = 1;
+                        }
+
+                        // 回溯
+                        std::pair<int, int> prePoint = matchPoint.top();
+                        matchPoint.pop();
+                        rowsIndex = prePoint.first;
+                        closIndex = prePoint.second;
+                        --strIndex;
+                        //std::cout << "rowsIndex:" << rowsIndex << " colsIndex:" << closIndex << std::endl;
                     }
+                    isVist.clear();
+                    strIndex = 0;
                 }
             }
-            if (matchPoint.empty()) return false;
-
-            while (!matchPoint.empty())
-            {
-                if (strIndex == strSize) return true;
-
-                if (rowsIndex-1 >= 0) // 上
-                {
-                    if (!isVist[rowsIndex-1][closIndex] &&
-                        matrix[rowsIndex-1][closIndex] == str[strIndex])
-                    {
-                        --rowsIndex;
-                        ++strIndex;
-                        matchPoint.push(std::make_pair(rowsIndex, closIndex));
-                        isVist[rowsIndex][closIndex] = 1;
-                        continue;
-                    }
-                    isVist[rowsIndex-1][closIndex] = 1;
-                }
-
-                if (closIndex+1 < cols) // 右
-                {
-                    if (!isVist[rowsIndex][closIndex+1] &&
-                        matrix[rowsIndex][closIndex+1] == str[strIndex])
-                    {
-                        ++closIndex;
-                        ++strIndex;
-                        matchPoint.push(std::make_pair(rowsIndex, closIndex));                       
-                        isVist[rowsIndex][closIndex] = 1;
-                        continue;                        
-                    }
-                    isVist[rowsIndex][closIndex+1] = 1;
-                }
-
-                if (rowsIndex+1 < rows) // 下
-                {
-                    if (!isVist[rowsIndex+1][closIndex] &&
-                        matrix[rowsIndex+1][closIndex] == str[strIndex])
-                    {
-                        ++rowsIndex;
-                        ++strIndex;
-                        matchPoint.push(std::make_pair(rowsIndex, closIndex));                       
-                        isVist[rowsIndex][closIndex] = 1;
-                        continue;                         
-                    }
-                    isVist[rowsIndex+1][closIndex] = 1;
-                }
-
-                if (closIndex-1 >= 0)
-                {
-                    if (!isVist[rowsIndex][closIndex-1] && 
-                        matrix[rowsIndex][closIndex-1] == str[strIndex])
-                    {
-                        --closIndex;
-                        ++strIndex;
-                        matchPoint.push(std::make_pair(rowsIndex, closIndex));                       
-                        isVist[rowsIndex][closIndex] = 1;
-                        continue;  
-                    }
-                    isVist[rowsIndex][closIndex-1] = 1;
-                }
-
-                // 回溯
-                std::pair<int, int> prePoint = matchPoint.top();
-                matchPoint.pop();
-                rowsIndex = prePoint.first;
-                closIndex = prePoint.second;
-                --strSize;
-            }
-            isVist.clear();
-        }    
+        }
+        return false;
     }
-
 };
-
-int main() 
+std::string boolToString(bool input)
+{
+    return input ? "True" : "False";
+}
+int main()
 {
     Solution s;
-
+    //char* matrix = ;
+    //char* str = ;
     std::cout << "method 1: \n";
-
+    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "SEE")) << "\n";
+    std::cout << std::endl;
+    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "ABCB")) << "\n";
+    std::cout << std::endl;
+    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "")) << "\n";
+    std::cout << std::endl;
+    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "SFDEES")) << "\n";
+    std::cout << std::endl;
+    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "C")) << "\n";
+    std::cout << std::endl;
+    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "ASADFCEES")) << "\n";
+    std::cout << std::endl;
+    std::cout << boolToString(s.hasPath("A", 1, 1, "AA")) << "\n";
+    std::cout << std::endl;
+    std::cout << boolToString(s.hasPath("ABCD", 1, 4, "ABCDE")) << "\n";
     std::cout << std::endl;
     return 0;
 }
