@@ -170,7 +170,7 @@ class Solution
                         }
 
                         // 回溯
-                        matchPoint.pop();
+                        matchPoint.pop(); // 好好想想
                         if (matchPoint.empty()) break;
                         std::pair<int, int> prePoint = matchPoint.top();
                         rowsIndex = prePoint.first;
