@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -82,16 +83,17 @@ class Solution
             return false;
 
         //std::stack<std::pair<int, int>> matchPoint;
-        std::vector<std::vector<int>> isVist(rows, std::vector<int>(cols, 0));
-        std::stack<std::pair<int, int>> matchPoint;
+
         for (int i = rowsIndex; i < rows; ++i)
         {
             for (int j = closIndex; j < cols; ++j)
             {
-                if (!isVist[i][j] && matrix[i * cols + j] == str[strIndex])
+                if (matrix[i * cols + j] == str[strIndex])
                 {
-                    // std::cout << "find: " << matrix[i * cols + j] << " "
-                    //     << str[strIndex] << " " << i << " " << j << std::endl;
+                    std::vector<std::vector<int>> isVist(rows, std::vector<int>(cols, 0));
+                    std::stack<std::pair<int, int>> matchPoint;
+                    //std::cout << "find: " << matrix[i * cols + j] << " "
+                    //    << str[strIndex] << " " << i << " " << j << std::endl;
                     rowsIndex = i;
                     closIndex = j;
                     matchPoint.push(std::make_pair(i, j));
@@ -100,8 +102,8 @@ class Solution
                     while (!matchPoint.empty())
                     {
                         //std::cout << "strIndex: " << strIndex << " strSize: " << strSize << std::endl;
-                        //if (strIndex == strSize)
-                        //    return true;
+                        if (strIndex == strSize)
+                            return true;
                         if (str[strIndex] == '\0') return true;
                         if (rowsIndex - 1 >= 0) // 上
                         {
@@ -168,14 +170,16 @@ class Solution
                         }
 
                         // 回溯
-                        std::pair<int, int> prePoint = matchPoint.top();
                         matchPoint.pop();
+                        if (matchPoint.empty()) break;
+                        std::pair<int, int> prePoint = matchPoint.top();
                         rowsIndex = prePoint.first;
                         closIndex = prePoint.second;
                         --strIndex;
-                        //std::cout << "rowsIndex:" << rowsIndex << " colsIndex:" << closIndex << std::endl;
+                        //std::cout << "pre_rowsIndex:" << rowsIndex << " pre_colsIndex:" << closIndex << std::endl;
                     }
-                    isVist.clear();
+                     // 弄明白clear()原理
+                    //isVist.clear();
                     strIndex = 0;
                 }
             }
@@ -193,21 +197,21 @@ int main()
     //char* matrix = ;
     //char* str = ;
     std::cout << "method 1: \n";
-    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "SEE")) << "\n";
+    std::cout << "true  " << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "SEE")) << "\n";
     std::cout << std::endl;
-    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "ABCB")) << "\n";
+    std::cout << "false  " << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "ABCB")) << "\n";
     std::cout << std::endl;
-    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "")) << "\n";
+    std::cout << "false  " << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "")) << "\n";
     std::cout << std::endl;
-    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "SFDEES")) << "\n";
+    std::cout << "true  " << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "SFDEES")) << "\n";
     std::cout << std::endl;
-    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "C")) << "\n";
+    std::cout << "true  " << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "C")) << "\n";
     std::cout << std::endl;
-    std::cout << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "ASADFCEES")) << "\n";
+    std::cout << "true  " << boolToString(s.hasPath("ABCESFCSADEE", 3, 4, "ASADFCEES")) << "\n";
     std::cout << std::endl;
-    std::cout << boolToString(s.hasPath("A", 1, 1, "AA")) << "\n";
+    std::cout << "false  " << boolToString(s.hasPath("A", 1, 1, "AA")) << "\n";
     std::cout << std::endl;
-    std::cout << boolToString(s.hasPath("ABCD", 1, 4, "ABCDE")) << "\n";
+    std::cout << "false  " << boolToString(s.hasPath("ABCD", 1, 4, "ABCDE")) << "\n";
     std::cout << std::endl;
     return 0;
 }
