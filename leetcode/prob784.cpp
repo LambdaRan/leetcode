@@ -48,7 +48,7 @@ private:
                                     std::string& str, 
                                     int index)
     {
-        if (index == str.size()-1) 
+        if (index == str.size()-1) // 到达尾端保存结果
         {
             if (isalpha(str[index]))
             {
@@ -64,14 +64,14 @@ private:
         }
         else  
         {
-            if (::isalpha(str[index]))
+            if (::isalpha(str[index])) // 是字母，改变当前字母大小写
             {
                 str[index] = static_cast<char>(tolower(static_cast<unsigned char>(str[index])));
                 _letterCasePermutation_dfs(result, str, index+1);
                 str[index] = static_cast<char>(toupper(static_cast<unsigned char>(str[index])));
                 _letterCasePermutation_dfs(result, str, index+1);
             }
-            else 
+            else // 是数字直接跳到下一个字符
             {
                 _letterCasePermutation_dfs(result, str, index+1);
             }
