@@ -38,16 +38,24 @@ public:
             while (true)
             {
                 size_t tailOne = head;
-                if (str[--head] < str[tailOne])
+                // 找到左边字符小于右边字符位置
+                // 如：1，4，5，3，2 
+                // head：4  tailOne:5
+                if (str[--head] < str[tailOne]) 
                 {
                     size_t tailTwo = strSize;
+                    // 从右到左找到第一个大于head所指字符的位置
+                    // 如：1，4，5，3，2
+                    // head:4   tailTwo:5
                     while (!(str[head] < str[--tailTwo]));
 
                     std::swap(str[head], str[tailTwo]);
                     std::reverse(str.begin()+tailOne, str.end());
+                    
                     result.insert(str);
                     break;
                 }
+
                 if (head == 0)
                 {
                     std::reverse(str.begin(), str.end());
