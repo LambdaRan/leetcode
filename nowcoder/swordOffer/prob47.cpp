@@ -8,7 +8,8 @@ using namespace std;
 
 /*
 * Name: 求1+2+3+...+n
-* Description: 求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。
+* Description: 求1+2+3+...+n，要求不能使用乘除法、for、while、if、else、switch、case等
+* 关键字及条件判断语句（A?B:C）。
 *
 */
 class Solution {

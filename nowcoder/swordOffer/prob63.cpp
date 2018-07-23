@@ -16,12 +16,15 @@ using namespace std;
 */
 class Solution {
 public:
+    // 利用两个优先级队列，一个递增一个递减 
     void Insert(int num)
     {
+        // 大顶堆中存储小值，也就是排序后的前半部分
         if(lessQueue_.empty() || num <= lessQueue_.top()) 
             lessQueue_.push(num);
         else 
             greaterQueue_.push(num);
+        
         if(lessQueue_.size() == greaterQueue_.size() + 2)
         {
             greaterQueue_.push(lessQueue_.top());
@@ -41,7 +44,9 @@ public:
                 static_cast<double>(lessQueue_.top());
     }
 private: 
+    // 大顶堆 中所有的元素值都小于顶堆中的元素指
     std::priority_queue<int, std::vector<int>, std::less<int>> lessQueue_;
+    // 小顶堆
     std::priority_queue<int, std::vector<int>, std::greater<int>> greaterQueue_;
 };
 

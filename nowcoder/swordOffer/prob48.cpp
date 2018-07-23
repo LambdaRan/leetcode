@@ -17,6 +17,7 @@ public:
     {
         while (num2 != 0)
         {
+            // 不考虑进位，相加结果和异或结果一样
             int temp = num1^num2;
             num2 = (num1&num2)<<1;
             num1 = temp;

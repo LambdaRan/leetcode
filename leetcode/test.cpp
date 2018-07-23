@@ -1,27 +1,32 @@
 
-#include "noncopyable.h"
 
 #include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 
-class x {};
-class y : public virtual x {};
-class z : public x 
+
+using namespace std;
+
+size_t sticker(std::vector<int>& vec)
 {
-    int mem_;
-};
-
-
-class A : noncopyable
-{
-    int a_;
-};
-
+    if (vec.empty()) return 0;
+    if (vec.size() == 1) return 1;
+    size_t sum = vec.size();
+    for (int i = 1; i < vec.size()-1; ++i)
+    {
+        if (vec[i] > vec[i-1])
+            ++sum;
+        if (vec[i] > vec[i+1])
+            ++sum;
+    }
+    if (vec[vec.size()-1] > vec[vec.size()-2])
+        ++sum;
+    return sum;
+}
 int main()
 {
-    std::cout << sizeof(x) << std::endl;
-    std::cout << sizeof(y) << std::endl;
-    std::cout << sizeof(z) << std::endl;
-
-
+    std::vector<int> vec = {2,4,5,2,3,7};
+    std::cout << sticker(vec) << std::endl;
     return 0;
 }
