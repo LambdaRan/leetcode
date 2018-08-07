@@ -34,3 +34,29 @@ int main()
     SealedClass2 sealed2;
     return 0;
 }
+
+
+// bool isSameTree(TreeNode *p, TreeNode *q) 
+// {
+//     if(p == nullptr && q == nullptr) 
+//         return true;
+//     else if(p == nullptr || q == nullptr)
+//     {
+//         return false;
+//     }
+//     else if(p->val == q->val)
+//     {
+//         if(isSameTree(p->left,q->left) && isSameTree(p->right,q->right))
+//         {
+//             return true;
+//         }
+//         else
+//         {
+//             return false;
+//         }
+//     }
+//     else
+//     {
+//         return false;
+//     }
+// }
