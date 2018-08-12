@@ -1,62 +1,54 @@
 #include <iostream>
-#include <limits>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
 
-// 不能被继承的类
-// 方法一：利用虚拟继承
-// 方法二：C++11新标准提供的方法 在类名后面跟一个final
-// class Base final {}; // Base 不能作为基类
-template<typename T>
-class MakeSealed
-{
-friend T;
-private:
-    MakeSealed() {}
-    ~MakeSealed() {}
-};
-
-class SealedClass2 : virtual public MakeSealed<SealedClass2>
-{
-public: 
-    SealedClass2() {}
-    ~SealedClass2() {}
-};
-class Tr : public SealedClass2
-{
-public:
-    Tr() {}
-    ~Tr() {}
-};
 int main()
 {
-    SealedClass2 sealed2;
+    int nHeap = 0;
+    cin >> nHeap;
+    vector<int> countPerHeap;
+    int count = 0;
+    for (int i = 0; i < nHeap; ++i)
+    {
+        cin >> count;
+        countPerHeap.push_back(count);
+    }
+    
+    vector<long> sumHeap(nHeap);
+    long sum = 0;
+    for (int i = 0; i < nHeap; ++i)
+    {
+        sum += countPerHeap[i];
+        sumHeap[i] = sum;
+    }
+    
+    int mAsk = 0;
+    cin >> mAsk;
+    vector<int> qi;
+    for (int i = 0; i < mAsk; ++i)
+    {
+        cin >> count;
+        qi.push_back(count);
+    }
+    
+
+    
+    for (int i = 0; i < mAsk; ++i)
+    {
+        auto ret =  std::lower_bound(sumHeap.begin(), sumHeap.end(), qi[i]);
+        size_t diff = ret - sumHeap.begin();
+        cout << diff+1 << endl;
+        // for (int j = 0; j < nHeap; ++j)
+        // {
+        //     if (qi[i] <= sumHeap[j])
+        //     {
+        //         cout << j << endl;
+        //         break;
+        //     }
+        // }
+    }
+
     return 0;
-}
-
-
-// bool isSameTree(TreeNode *p, TreeNode *q) 
-// {
-//     if(p == nullptr && q == nullptr) 
-//         return true;
-//     else if(p == nullptr || q == nullptr)
-//     {
-//         return false;
-//     }
-//     else if(p->val == q->val)
-//     {
-//         if(isSameTree(p->left,q->left) && isSameTree(p->right,q->right))
-//         {
-//             return true;
-//         }
-//         else
-//         {
-//             return false;
-//         }
-//     }
-//     else
-//     {
-//         return false;
-//     }
-// }
+}   
