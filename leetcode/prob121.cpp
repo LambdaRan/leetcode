@@ -3,6 +3,9 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <sstream>
+
+#include <ctype.h>
 
 using namespace std;
 /*
@@ -32,20 +35,65 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-    int maxProfit(vector<int>& prices) {
-        
+    int maxProfit(vector<int>& prices) 
+    {
+        int pSize = static_cast<int>(prices.size());
+        if (pSize <= 1) return 0;
+        int maxPriceIdx = 0;
+        int minPriceIdx = 0;
+        int maxProfitValue = 0;
+        for (int i = 1; i < pSize; ++i)
+        {
+            if (prices[i] > prices[maxPriceIdx])
+                maxPriceIdx = i;
+            if (prices[i] < prices[minPriceIdx])
+            {
+                minPriceIdx = i;
+                maxPriceIdx = i;
+            }
+            if (minPriceIdx < maxPriceIdx)
+                maxProfitValue = std::max(maxProfitValue, prices[maxPriceIdx]-prices[minPriceIdx]);
+        }
+        return maxProfitValue;
     }
 };
-std::string boolToString(bool input) {
-    return input ? "True" : "False";
+void trimLeftTrailingSpaces(string &input) {
+    input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
+        return !isspace(ch);
+    }));
+}
+
+void trimRightTrailingSpaces(string &input) {
+    input.erase(find_if(input.rbegin(), input.rend(), [](int ch) {
+        return !isspace(ch);
+    }).base(), input.end());
+}
+
+vector<int> stringToIntegerVector(string input) {
+    vector<int> output;
+    trimLeftTrailingSpaces(input);
+    trimRightTrailingSpaces(input);
+    input = input.substr(1, input.length() - 2);
+    stringstream ss;
+    ss.str(input);
+    string item;
+    char delim = ',';
+    while (getline(ss, item, delim)) {
+        output.push_back(stoi(item));
+    }
+    return output;
 }
 int main() 
 {
-    Solution s;
+    string line;
+    while (getline(cin, line)) 
+    {
+        vector<int> prices = stringToIntegerVector(line);
+        
+        int ret = Solution().maxProfit(prices);
 
-    std::cout << "method 1: \n";
-    std::cout <<  "function(): true <------> " << boolToString(s.function()) << "\n";
-
-    std::cout << std::endl;
+        string out = to_string(ret);
+        cout << out << endl;
+    }
     return 0;
 }
