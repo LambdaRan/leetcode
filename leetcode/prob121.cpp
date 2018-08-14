@@ -56,6 +56,22 @@ public:
         }
         return maxProfitValue;
     }
+    // 动态规划
+    int maxProfit_v2(vector<int>& prices) 
+    {
+        if (prices.size() <= 1) return 0;
+        vector<int> dp(prices.size());
+        dp[0] = 0;
+        int maxProfitValue = 0;
+        for (size_t i = 1; i < prices.size(); ++i)
+        {
+            dp[i] = std::max(dp[i-1], dp[i-1]+(prices[i]-prices[i-1]));
+            maxProfitValue = std::max(maxProfitValue, dp[i]);
+        }
+        return maxProfitValue;
+    }
+
+
 };
 void trimLeftTrailingSpaces(string &input) {
     input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
