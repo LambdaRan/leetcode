@@ -56,17 +56,27 @@ public:
         }
         return maxProfitValue;
     }
-    // 动态规划
+    // Kadene算法
     int maxProfit_v2(vector<int>& prices) 
     {
+        int maxCur = 0, maxSoFar = 0;
+        for (size_t i = 1; i < prices.size(); ++i) 
+        {
+            maxCur = std::max(0, maxCur + (prices[i] - prices[i-1]));
+            maxSoFar = std::max(maxCur, maxSoFar);
+        }
+        return maxSoFar;
+    }
+    // 股票某日与前一日股票价格之差组成德差值序列，把问题转换成一个求最大子列和的问题 见problem 53
+    int maxProfit_v3(vector<int>& prices) 
+    {
         if (prices.size() <= 1) return 0;
-        vector<int> dp(prices.size());
-        dp[0] = 0;
+        int curMax = 0;
         int maxProfitValue = 0;
         for (size_t i = 1; i < prices.size(); ++i)
         {
-            dp[i] = std::max(dp[i-1], dp[i-1]+(prices[i]-prices[i-1]));
-            maxProfitValue = std::max(maxProfitValue, dp[i]);
+            curMax = std::max(prices[i]-prices[i-1], curMax+(prices[i]-prices[i-1]));
+            maxProfitValue = std::max(maxProfitValue, curMax);
         }
         return maxProfitValue;
     }
@@ -99,6 +109,9 @@ vector<int> stringToIntegerVector(string input) {
     }
     return output;
 }
+
+// [7,1,5,3,6,4]
+// 5
 int main() 
 {
     string line;
@@ -106,7 +119,7 @@ int main()
     {
         vector<int> prices = stringToIntegerVector(line);
         
-        int ret = Solution().maxProfit(prices);
+        int ret = Solution().maxProfit_v2(prices);
 
         string out = to_string(ret);
         cout << out << endl;

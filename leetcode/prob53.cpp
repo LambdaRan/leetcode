@@ -51,6 +51,17 @@ public:
         }
         return maxSum;
     }
+    // Kadene算法
+    int maxSubArray_v4(vector<int>& nums) 
+    {
+        int maxCur = nums[0], maxSoFar = nums[0];
+        for (int i = 1; i < nums.size(); i++) 
+        {
+            maxCur = max(nums[i], maxCur += nums[i]);
+            maxSoFar = max(maxCur, maxSoFar);
+        }
+        return maxSoFar;
+    }
     // 动态规划
     int maxSubArray_v2(vector<int>& nums) 
     {
