@@ -58,7 +58,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob06.cpp
+SRC = prob081503.cpp
 
 main:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o main
