@@ -22,8 +22,13 @@ int main()
                     s = tolower(s);
             }
         }
+
        cout << str <<endl;        
     }
+
    return 0;
 }
+
+        // std::transform(str.begin(), str.end(), str.begin(), 
+        // [](unsigned char c) -> unsigned char { return std::toupper(c); });
 
