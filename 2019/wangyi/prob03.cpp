@@ -38,7 +38,8 @@ int main()
     for (int i = 0; i < mAsk; ++i)
     {
         auto ret =  std::lower_bound(sumHeap.begin(), sumHeap.end(), qi[i]);
-        size_t diff = ret - sumHeap.begin();
+        //size_t diff = ret - sumHeap.begin();
+        size_t diff = std::distance(ret, sumHeap.begin());
         cout << diff+1 << endl;
     }
 
