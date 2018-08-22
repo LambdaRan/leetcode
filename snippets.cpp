@@ -134,6 +134,7 @@ std::vector<int> v1(10), v2(10);
 std::generate(v1.begin(), v1.end(), std::bind(dis, std::ref(mt)));
 std::generate(v2.begin(), v2.end(), std::bind(dis, std::ref(mt)));
 
+
 template<class ForwardIt, class T>
 ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value)
 {
@@ -154,6 +155,7 @@ ForwardIt lower_bound(ForwardIt first, ForwardIt last, const T& value)
     }
     return first;
 }
+
 template<class ForwardIt, class T>
 ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value)
 {
@@ -173,4 +175,110 @@ ForwardIt upper_bound(ForwardIt first, ForwardIt last, const T& value)
             count = step;
     }
     return first;
+}
+
+// 首先，从尾端开始往前寻找两个相邻元素，令第一个元素为*i,第二个元素为*ii,且满足*i < * ii,
+// 找到这样一组相邻元素后，在从最尾端往前检查，找到第一个大于*i的元素，令为*j,将i,j元素对调，
+// 再将ii之后的所有元素颠倒排列。 这就是下一个排列组合
+template<class BidirIt>
+bool next_permutation(BidirIt first, BidirIt last)
+{
+    if (first == last) return false;
+    BidirIt i = last;
+    if (first == --i) return false;
+ 
+    while (true) {
+        BidirIt i1, i2;
+ 
+        i1 = i;
+        if (*--i < *i1) {
+            i2 = last;
+            while (!(*i < *--i2))
+                ;
+            std::iter_swap(i, i2);
+            std::reverse(i1, last);
+            return true;
+        }
+        if (i == first) {
+            std::reverse(first, last);
+            return false;
+        }
+    }
+}
+// 首先从最尾端开始往前寻找两个相邻的元素，令第一个元素为*i, 第二个元素为*ii,且满足*i > *ii,
+// 找到这样的相邻元素后，再从最尾端开始往前检验，找到第一个小于*i的元素，令为*j,将i,j元素对调，
+// 再将ii之后的所有元素颠倒排列。此为前一个排列组合
+
+template<class BidirIt>
+bool prev_permutation(BidirIt first, BidirIt last)
+{
+    if (first == last) return false;
+    BidirIt i = last;
+    if (first == --i) return false;
+ 
+    while (1) {
+        BidirIt i1, i2;
+ 
+        i1 = i;
+        if (*i1 < *--i) {
+            i2 = last;
+            while (!(*--i2 < *i))
+                ;
+            std::iter_swap(i, i2);
+            std::reverse(i1, last);
+            return true;
+        }
+        if (i == first) {
+            std::reverse(first, last);
+            return false;
+        }
+    }
+}
+vector<string> Permutation(string str)
+{
+    if (str.empty()) return vector<string>();
+    size_t strSize = str.size();
+    if (strSize == 1) 
+    {
+        vector<string> ret;
+        ret.push_back(str);
+        return ret;
+    } 
+    
+    set<string> result;
+    result.insert(str);
+    bool loop = true;
+    while (loop)
+    {
+        size_t head = strSize - 1;
+        while (true)
+        {
+            size_t tailOne = head;
+            // 找到左边字符小于右边字符位置
+            // 如：1，4，5，3，2 
+            // head：4  tailOne:5
+            if (str[--head] < str[tailOne]) 
+            {
+                size_t tailTwo = strSize;
+                // 从右到左找到第一个大于head所指字符的位置
+                // 如：1，4，5，3，2
+                // head:4   tailTwo:5
+                while (!(str[head] < str[--tailTwo]));
+
+                std::swap(str[head], str[tailTwo]);
+                std::reverse(str.begin()+tailOne, str.end());
+                
+                result.insert(str);
+                break;
+            }
+
+            if (head == 0)
+            {
+                std::reverse(str.begin(), str.end());
+                loop = false;
+                break;
+            }
+        }
+    }
+    return vector<string>(result.begin(), result.end());
 }
