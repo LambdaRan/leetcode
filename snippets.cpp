@@ -74,6 +74,14 @@ vector<int> stringToIntegerVector(string input) {
 }
 
 
+// 堆排序
+void heapSort_v1(int *arr, int n)
+{
+    std::make_heap(arr, arr+n);
+    for (int i = n; i > 0; --i)
+        std::pop_heap(arr, arr+i);
+}
+
 // 快速排序
 template <class ForwardIt>
 void quicksort(ForwardIt first, ForwardIt last)
