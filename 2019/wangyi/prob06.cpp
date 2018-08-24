@@ -6,8 +6,11 @@
 #include <vector>
 #include <string>
 #include <iterator>
+#include <utility>
 
 using namespace std;
+
+// 塔 立方体
 
 int main()
 {
@@ -18,63 +21,33 @@ int main()
     for (int i = 0; i < nTower; ++i)
         cin >> everHeight[i];
     
-
-    long sumHeight = std::accumulate(everHeight.begin(), everHeight.end(), 0);
-    int remain = static_cast<int>(sumHeight % nTower);
-    int average = static_cast<int>(sumHeight / nTower);
-    if (remain != 0)
-        average += 1;
-    vector<int> diff(nTower);  
-    for (int i = 0; i < nTower; ++i)
+    int count = 0;
+    typedef std::pair<int, int> FromTo;
+    vector<FromTo> movePath;
+    while (count < kOper)
     {
-        if (everHeight[i] < average)
-            diff[i] = average - everHeight[i];
-    }
-    int sumDiff = std::accumulate(diff.begin(), diff.end(), 0);
-
-    if (sumDiff <= kOper) // 操作次数够用
-    {
-        if (remain == 0) // 能够一样高
+        auto minIter = std::min_element(everHeight.begin(), everHeight.end());
+        auto maxIter = std::max_element(everHeight.begin(), everHeight.end());
+        if (*maxIter - *minIter > 1)
         {
-            cout << 0 << " " << sumDiff << endl;
-            size_t greAveIndex = 0;
-            size_t lessAveIndex = 0;
-            while (sumDiff > 0)
-            {
-                auto gret = std::find_if(std::next(everHeight.begin(), greAveIndex), everHeight.end(), 
-                [average](const int value){
-                    return value > average;
-                });
-                greAveIndex = std::distance(everHeight.begin(), gret);
-
-                auto lret = std::find_if(std::next(everHeight.begin(), lessAveIndex), everHeight.end(),
-                [average](const int value){
-                    return value < average;
-                });
-                lessAveIndex = std::distance(everHeight.begin(), lret);
-
-                int curDiff = everHeight[greAveIndex] - average;
-                if (curDiff > diff[lessAveIndex])
-                {
-                    for (int i = diff[lessAveIndex]; i > 0; --i)
-                        cout << (greAveIndex+1) << " " << (lessAveIndex+1) << endl;
-                    everHeight[lessAveIndex] = average;
-                    everHeight[greAveIndex] -= diff[lessAveIndex];
-                    sumDiff -= diff[lessAveIndex];
-                }
-                else  
-                {
-                    for (int i = curDiff; i > 0; --i)
-                        cout << (greAveIndex+1) << " " << (lessAveIndex+1) << endl;
-                    everHeight[lessAveIndex] += curDiff;
-                    everHeight[greAveIndex] = average;
-                    sumDiff -= curDiff;
-                }
-            }
-        } // 能够一样高
-
-        
+            --(*maxIter);
+            ++(*minIter);
+            FromTo fromTo = std::make_pair(std::distance(everHeight.begin(), maxIter)+1,
+                            std::distance(everHeight.begin(), minIter)+1);
+            movePath.push_back(fromTo);
+            ++count;
+        }
+        else  
+            break;
     }
+    auto minIter = std::min_element(everHeight.begin(), everHeight.end());
+    auto maxIter = std::max_element(everHeight.begin(), everHeight.end());
+    cout << (*maxIter - *minIter) << " " << count << endl;
+    for (size_t i = 0; i < movePath.size(); ++i)
+    {
+        cout << movePath[i].first << " " << movePath[i].second << '\n';
+    }
+    cout << endl;
 
     return 0;
 }
