@@ -1,6 +1,10 @@
 
 #include <iostream>
+#include <sstream>
 #include <algorithm>
+#include <functional>
+#include <utility>
+#include <iterator>
 #include <string>
 #include <vector>
 
