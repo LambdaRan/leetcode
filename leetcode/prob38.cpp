@@ -1,4 +1,6 @@
 
+
+// https://leetcode.com/problems/count-and-say/description/
 #include <iostream>
 #include <sstream>
 #include <algorithm>
@@ -10,7 +12,7 @@
 
 using namespace std;
 /*
-* Name: 
+* Name: 38. Count and Say
 * Description: 
 *
 */
@@ -20,7 +22,7 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-    bool function() {
+    bool function() {   
         
     }
 };
