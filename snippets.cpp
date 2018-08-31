@@ -35,6 +35,15 @@ while (allWords >> word)
 // 打印消息
 std::copy(v.begin(), v.end(), std::ostream_iterator<int>(std::cout, " "));
 
+// 打印vector<pair<int, int>>
+void printVectorPair(vector<pair<int, int>>& vp)
+{
+    for (auto& v : vp)
+        cout << 'f: ' << v.first << " s: " << v.second << "\n";
+}
+
+
+
 string& trim(string &s) 
 {
     if (s.empty()) 

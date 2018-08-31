@@ -26,7 +26,6 @@ void init()
         {
             c[i][j] = (c[i-1][j-1] + c[i-1][j]) % mod;
         }
-        
     }
 }
 
