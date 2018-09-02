@@ -46,6 +46,22 @@ public:
         pHead->next = NULL;
         return p;
     }
+    ListNode* ReverseList_V3(ListNode* pHead) 
+    {
+        if (!pHead || !pHead->next) return pHead;
+        ListNode* cur = pHead->next;
+        ListNode* newHead = pHead;
+        newHead->next = NULL;
+        pHead = cur;
+        while (pHead)
+        {
+            cur = pHead->next;
+            pHead->next = newHead;
+            newHead = pHead;
+            pHead = cur;
+        }
+        return newHead;
+    }
 };
 
 int main() 
