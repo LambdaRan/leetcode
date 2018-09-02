@@ -37,6 +37,15 @@ public:
         cur = NULL;
         return head.next;
     }
+
+    ListNode* ReverseListRecursive(ListNode* pHead) 
+    {
+        if (!pHead || !pHead->next) return pHead;
+        ListNode* p = ReverseListRecursive(pHead->next);
+        pHead->next->next = pHead;
+        pHead->next = NULL;
+        return p;
+    }
 };
 
 int main() 
