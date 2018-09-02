@@ -2,6 +2,9 @@
 #include <iostream>
 #include <algorithm>
 #include <sstream>
+#include <functional>
+#include <utility>
+#include <iterator>
 #include <string>
 #include <vector>
 
