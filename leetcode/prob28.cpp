@@ -9,6 +9,7 @@
 #include <iterator>
 #include <string>
 #include <vector>
+#include <assert.h>
 
 using namespace std;
 /*
@@ -22,38 +23,6 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-<<<<<<< HEAD
-    string countAndSay(int n) 
-    {
-        string result;
-        if (n == 0) return result;
-        result = "1";
-        for (int k = 2; k <= n; ++k)
-        {
-            string cur = "";
-            size_t first = 0;
-            size_t second = 1;
-            while (second < result.size())
-            {
-                if (result[second] != result[first])
-                {
-                    int cnt = second - first;
-                    cur += cnt + '0';
-                    cur += result[first];
-                    first = second;
-                }
-                ++second;
-            }
-            if (first < second)
-            {
-                int cnt = second - first;
-                cur += cnt + '0';
-                cur += result[first];
-            }
-            result = cur;
-        }
-        return result;
-=======
 
     int strStr(string haystack, string needle) {
         // return haystack.find(needle);
@@ -135,7 +104,6 @@ int index_kmp(const std::string &mstr, const std::string &tstr, int position)
         {
             j = next[j];
         }
->>>>>>> 9cbf19112ca2e52fd44a150bd6864e515ee09346
     }
 
     if (j >= size_tstr)

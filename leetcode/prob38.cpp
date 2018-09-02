@@ -62,7 +62,7 @@ int main()
     Solution s;
 
     std::cout << "method 1: \n";
-    std::cout <<  "function(): true <------> " << boolToString(s.function()) << "\n";
+    //std::cout <<  "function(): true <------> " << boolToString(s.function()) << "\n";
 
     std::cout << std::endl;
     return 0;
