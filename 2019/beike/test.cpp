@@ -31,12 +31,12 @@ void init()
 	ip = ip1 = 0;
 }
 
-void addEdge(int u, int v, int w)
+void addedge(int u, int v, int w)
 {
 	edge[ip].v = v, edge[ip].w = w, edge[ip].next = head[u], head[u] = ip++;
 }
 
-void addEdge1(int u, int v)
+void addedge1(int u, int v)
 {
 	edge1[ip1].u = u, edge1[ip1].v = v, edge1[ip1].lca = -1, edge1[ip1].next = head1[u], head1[u] = ip1++;
 }
@@ -56,7 +56,7 @@ void Union(int x, int y)
 		father[y] = x;
 }
 
-void search(int u)
+void tarjan(int u)
 {
 	vis[u] = 1;
 	father[u] = u;
@@ -67,7 +67,7 @@ void search(int u)
 		if (!vis[v])
 		{
 			dir[v] = dir[u] + w;
-			search(v);
+			tarjan(v);
 			Union(u, v);
 		}
 	}
@@ -95,7 +95,7 @@ int main()
 			if (b == -1)
 				root = a;
 			else
-				addEdge(b, a, 1);
+				addedge(b, a, 1);
 		}
 		int k;
 		cin >> k;
@@ -105,11 +105,11 @@ int main()
 			cin >> a >> b;
 			node[i].a = a;
 			node[i].b = b;
-			addEdge1(a, b);
-			addEdge1(b, a);
+			addedge1(a, b);
+			addedge1(b, a);
 		}
 		dir[root] = 0;
-		search(root);
+		tarjan(root);
 		for (int i = 0; i < k * 2; i += 2)
 		{
 			int a = node[i / 2].a, b = node[i / 2].b;
