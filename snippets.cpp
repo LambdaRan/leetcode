@@ -42,6 +42,12 @@ void printVectorPair(vector<pair<int, int>>& vp)
         cout << 'f: ' << v.first << " s: " << v.second << "\n";
 }
 
+// 计算数组大小
+template <class T, std::size_t N>
+constexpr std::size_t size(const T (&pArray)[N]) noexcept
+{
+    return (void)pArray, N;
+}
 
 
 string& trim(string &s) 
