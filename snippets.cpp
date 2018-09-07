@@ -61,6 +61,30 @@ string& trim(string &s)
     return s;
 }
 
+int main()
+{
+    string line = "";
+    string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    string number = "0123456789";
+    typedef pair<int, string> Entry;
+    while (getline(cin, line))
+    {
+        set<Entry> letterSet;
+        size_t start = 0;
+        while (start < line.size())
+        {
+            auto ret1 = line.find_first_not_of(alpha, start);
+            string letter = string(line, start, ret1-start);
+            auto ret2 = line.find_first_not_of(number, ret1);
+            int size = stoi(string(line, ret1, ret2-ret1));
+            letterSet.insert(make_pair(size, letter));
+            start = ret2;
+        }
+    }
+
+    return 0;
+}
+
 void trimLeftTrailingSpaces(string &input) {
     input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
         return !isspace(ch);
