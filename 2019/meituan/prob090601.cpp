@@ -11,50 +11,27 @@
 
 //#include <stdio.h>
 
+using namespace std; 
 
-using namespace std;
+int lst[100005]; 
 
 int main()
-{
-    int nInter, kBettow, tCount;
-    cin >> nInter >> kBettow >> tCount;
-    vector<int> number(nInter);
-    for (int i = 0; i < nInter; ++i)
-    {
-        cin >> number[i];
-    }
-    int maxCount = 0;
-    map<int, int> keyValue;
-    int start = 0;
-    for (int i = 0; i < nInter; ++i)
-    {
-        if (i-start == kBettow)
-        {
-            for (auto it = keyValue.begin(); it != keyValue.end(); ++it)
-            {
-                if (it->second >= tCount)
-                {
-                    ++maxCount;
-                    break;
-                }
-            }
-            if (keyValue[number[start]] == 1)
-                keyValue.erase(number[start]);
-            else  
-                --keyValue[number[start]];
-            ++start;
-        }
-
-        ++keyValue[number[i]];
-    }
-    for (auto it = keyValue.begin(); it != keyValue.end(); ++it)
-    {
-        if (it->second >= tCount)
-        {
-            ++maxCount;
-            break;
-        }
-    }
-    cout << maxCount << endl;
-    return 0;
+{     
+	int n;     
+	while ( cin >> n )
+	{         
+		vector<int> nodeDepth(100005, 0); 
+        int maxDepth = 0;
+		for (int i = 0; i< n-1; ++i)
+		{             
+			int a,b;             
+			cin >> a >> b;
+            // 当前节点的深度
+            nodeDepth[b] = nodeDepth[a] + 1;
+			maxDepth = max(nodeDepth[b], maxDepth);        
+		}        
+        int minLost = 2*n-2-maxDepth; 
+        cout << minLost << endl;   
+	}     
+	return 0; 
 }

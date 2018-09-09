@@ -7,34 +7,51 @@
 #include <vector>
 #include <string>
 
-//#include <stdio.h>
+#include <map>
+
+//#include <cstdio>
 
 
 using namespace std;
 
 int main()
 {
-    int nRecord = 0;
-    cin >> nRecord;
-
-    string aQuery = "";
-    cin >> aQuery;
-
-    vector<string> idVector;
-    string id = "";
-    string inTime = "";
-    string outTime = "";
-    for (int i = 0; i < nRecord; ++i)
+    int nInter, kBettow, tCount;
+    cin >> nInter >> kBettow >> tCount;
+    vector<int> number(nInter);
+    int maxCount = 0;
+    map<int, int> keyValue;
+    int start = 0;
+    for (int i = 0; i < nInter; ++i) // 尺取法
     {
-        cin >> id >> inTime >> outTime;
-        if (aQuery >= inTime && aQuery <= outTime)
+        cin >> number[i];
+        if (i-start == kBettow)
         {
-            idVector.push_back(id);
+            for (auto it = keyValue.begin(); it != keyValue.end(); ++it)
+            {
+                if (it->second >= tCount)
+                {
+                    ++maxCount;
+                    break;
+                }
+            }
+            
+            if (keyValue[number[start]] == 1)
+                keyValue.erase(number[start]);
+            else  
+                --keyValue[number[start]];
+            ++start;
+        }
+        ++keyValue[number[i]];
+    }
+    for (auto it = keyValue.begin(); it != keyValue.end(); ++it)
+    {
+        if (it->second >= tCount)
+        {
+            ++maxCount;
+            break;
         }
     }
-    if (idVector.empty())
-        cout << "null" << endl;
-    sort(idVector.begin(), ididVector.end());
-    copy(idVector.begin(), idVector.end(), ostream_iterator<string>(cout, "\n"));
+    cout << maxCount << endl;
     return 0;
 }
