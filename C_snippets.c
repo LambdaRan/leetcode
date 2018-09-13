@@ -178,3 +178,4 @@ unsigned long lcm_not_zero(unsigned long a, unsigned long b)
 
 	return (b ? : a);
 }
+

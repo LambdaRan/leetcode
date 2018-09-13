@@ -49,16 +49,101 @@ constexpr std::size_t size(const T (&pArray)[N]) noexcept
     return (void)pArray, N;
 }
 
-
-string& trim(string &s) 
+int binary_search(int *arr, int size, int value)
 {
-    if (s.empty()) 
+    int low = 0;
+    int hight = size - 1;
+    while (low <= hight)
     {
-        return s;
+        int mid = (low + hight) / 2;
+        if (arr[mid] == value)
+        {
+            return mid;
+        }
+        else if (arr[mid] < value)
+        {
+            low = mid + 1;
+        }
+        else  
+        {
+            hight = mid - 1;
+        }
     }
-    s.erase(0,s.find_first_not_of(" "));
-    s.erase(s.find_last_not_of(" ") + 1);
-    return s;
+    return -1;
+}
+
+int interpolation_search(int *arr, int size, int value)
+{
+    int low = 0;
+    int hight = size - 1;
+    while (low <= hight && low >= 0)
+    {
+        int mid = low + (hight-low) * (value-arr[low]) / (arr[hight]-arr[low]);
+        if (arr[mid] == value)
+        {
+            return mid;
+        }
+        else if (arr[mid] < value)
+        {
+            low = mid + 1;
+        }
+        else  
+        {
+            hight = mid - 1;
+        }
+    }
+    return -1;    
+}
+
+std::vector<int>& fibonacciLoop(int n = 23)
+{
+    std::vector<int> oldValue(n+1);
+
+    oldValue[0] = 0;
+    oldValue[1] = 1;
+    for (int i = 2; i <= n; ++i)
+        oldValue[i] = oldValue[i-1] + oldValue[i-2];
+    
+
+    return oldValue;
+}
+//F(24) = 46368
+// 斐波那契数列  前25项
+//array[25] = [0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,17711,28657,46368];
+int fibonacci_search(int *arr, int size, int value)
+{
+    std::vector<int> fvector= fibonacciLoop();
+    int k = 0;
+    while (size > fvector[k] - 1)
+        ++k;
+    
+    for (int i = size; i < fvector[k]-1; ++i)
+        arr[i] = arr[n];
+
+    int low = 0;
+    int high = size - 1;
+    while (low <= high)
+    {
+        int mid = low + fvector[k-1] - 1;
+        if (value < arr[mid])
+        {
+            high = mid - 1;
+            k = k - 1;
+        }
+        else if (value > arr[mid])
+        {
+            low = mid + 1;
+            k = k - 2;
+        }
+        else  
+        {
+            if (mid <= size)
+                return mid;
+            else  
+                return size;
+        }
+    }
+    return -1;
 }
 
 int main()
@@ -83,72 +168,6 @@ int main()
     }
 
     return 0;
-}
-
-vector<string> strSplit(const string& str, char dem)
-{
-    vector<string> vs;
-    size_t start = 0;
-    size_t size = str.size();
-    while (start < size)
-    {
-        auto ret = str.find_first_of(dem, start);
-        ret = (ret == string::npos) ? size : ret;
-        vs.emplace_back(str.substr(start, ret-start));
-        start = ret + 1;
-    }
-    return vs;
-}
-// #include <sstream>
-// #include <cctype>
-vector<int> strSplit(string input, char delim) 
-{
-    vector<int> output;
-    // trimLeftTrailingSpaces(input);
-    input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
-        return !isspace(ch);
-    }));
-    // trimRightTrailingSpaces(input);
-    input.erase(find_if(input.rbegin(), input.rend(), [](int ch) {
-        return !isspace(ch);
-    }).base(), input.end());
-    //input = input.substr(1, input.length() - 2);
-    istringstream ss(input);
-    // ss.str(input);
-    string item;
-    // char delim = ',';
-    while (getline(ss, item, delim)) {
-        output.emplace_back(stoi(item));
-    }
-    return output;
-}
-
-void trimLeftTrailingSpaces(string &input) {
-    input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
-        return !isspace(ch);
-    }));
-}
-
-void trimRightTrailingSpaces(string &input) {
-    input.erase(find_if(input.rbegin(), input.rend(), [](int ch) {
-        return !isspace(ch);
-    }).base(), input.end());
-}
-
-vector<int> stringToIntegerVector(string input) 
-{
-    vector<int> output;
-    trimLeftTrailingSpaces(input);
-    trimRightTrailingSpaces(input);
-    input = input.substr(1, input.length() - 2);
-    stringstream ss;
-    ss.str(input);
-    string item;
-    char delim = ',';
-    while (getline(ss, item, delim)) {
-        output.push_back(stoi(item));
-    }
-    return output;
 }
 
 
