@@ -10,18 +10,21 @@
 # 		 -Wmissing-declarations  -Winline \
 # 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
-CXXFLAGS += -Wall -Wextra -Werror -Wshadow -Wconversion -Wfatal-errors -std=c++11
-CXXFLAGS += -g -Wpointer-arith \
-		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
-		-Wcast-align -Wformat -Wchar-subscripts \
-		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \
-		-Winline -Wcast-qual -Wconversion-null -Wcoverage-mismatch \
-		-Wdiv-by-zero -Wdouble-promotion \
-		-Weffc++ -Wempty-body -Wendif-labels -Wenum-compare 
+CXXFLAGS += -g -Wall  -std=c++11
+# -Wextra -Werror -Wshadow -Wconversion -Wfatal-errors
+# CXXFLAGS += -g -Wpointer-arith \
+# 		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
+# 		-Wcast-align -Wformat -Wchar-subscripts \
+# 		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \
+# 		-Winline -Wcast-qual -Wconversion-null -Wcoverage-mismatch \
+# 		-Wdiv-by-zero -Wdouble-promotion \
+# 		-Weffc++ -Wempty-body -Wendif-labels -Wenum-compare 
 
-CXXFLAGS += -pedantic -Wabi -Wcast-qual -Wfloat-equal  \
-		-Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls \
-		-Wno-missing-field-initializers -Wno-missing-braces -Wno-sign-compare -Wno-multichar 
+# CXXFLAGS += -pedantic -Wabi -Wcast-qual -Wfloat-equal  \
+# 		-Wmissing-format-attribute -Wno-long-long -Wpacked -Wredundant-decls \
+# 		-Wno-missing-field-initializers -Wno-missing-braces -Wno-sign-compare -Wno-multichar 
+
+#CXXFLAGS += -Wmissing-declarations -Wconversion
 
 #-Wfatal-errors 
 #-fmax-errors=N    // 在出现第 N 此错误的时候停止编译，GCC 4.6 and later
@@ -56,7 +59,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob19.cpp
+SRC = prob091501.cpp
 
 main:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o main

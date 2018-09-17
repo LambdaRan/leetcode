@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <algorithm>
 #include <sstream>
@@ -6,55 +7,35 @@
 #include <vector>
 #include <string>
 
+//#include <stdio.h>
+
 using namespace std;
 
-string& trim(string &s) 
-{
-    if (s.empty()) 
-        return s;
-    
-    s.erase(0,s.find_first_not_of(" "));
-    s.erase(s.find_last_not_of(" ") + 1);
-    return s;
-}
 
-vector<string> strSplit(const string& str, char dem)
-{
-    vector<string> vs;
-    size_t start = 0;
-    size_t size = str.size();
-    while (start < size)
-    {
-        auto ret = str.find_first_of(dem, start);
-        ret = (ret == string::npos) ? size : ret;
-        vs.emplace_back(str.substr(start, ret-start));
-        start = ret + 1;
+/*
+* Name: 
+* Description: 
+*
+*/
+
+// Definition for singly-linked list.
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+
+class Solution {
+public:
+    /*
+    * Runtime:    ms
+    * Your runtime beats  % of cpp submissions. 
+    */
+    bool function() {
+        
     }
-    return vs;
-}
-// #include <sstream>
-// #include <cctype>
-vector<int> strSplit(string input, char delim) 
-{
-    vector<int> output;
-    // trimLeftTrailingSpaces(input);
-    input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
-        return !isspace(ch);
-    }));
-    // trimRightTrailingSpaces(input);
-    input.erase(find_if(input.rbegin(), input.rend(), [](int ch) {
-        return !isspace(ch);
-    }).base(), input.end());
-    //input = input.substr(1, input.length() - 2);
-    istringstream ss(input);
-    // ss.str(input);
-    string item;
-    // char delim = ',';
-    while (getline(ss, item, delim)) {
-        output.emplace_back(stoi(item));
-    }
-    return output;
-}
+};
 
 void trimLeftTrailingSpaces(string &input) {
     input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
@@ -68,8 +49,7 @@ void trimRightTrailingSpaces(string &input) {
     }).base(), input.end());
 }
 
-vector<int> stringToIntegerVector(string input) 
-{
+vector<int> stringToIntegerVector(string input) {
     vector<int> output;
     trimLeftTrailingSpaces(input);
     trimRightTrailingSpaces(input);
@@ -83,12 +63,6 @@ vector<int> stringToIntegerVector(string input)
     }
     return output;
 }
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
 
 ListNode* stringToListNode(string input) {
     // Generate list from the input
@@ -121,4 +95,20 @@ string listNodeToString(ListNode* node) {
         node = node->next;
     }
     return "[" + result.substr(0, result.length() - 2) + "]";
+}
+
+int main() 
+{
+    string line;
+    while (getline(cin, line)) {
+        ListNode* head = stringToListNode(line);
+        getline(cin, line);
+        int n = stringToInteger(line);
+        
+        ListNode* ret = Solution().removeNthFromEnd(head, n);
+
+        string out = listNodeToString(ret);
+        cout << out << endl;
+    }
+    return 0;
 }

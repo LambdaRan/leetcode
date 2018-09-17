@@ -30,6 +30,19 @@ public:
         
         return vec[number];
     }
+    int rectCoverII(int number) {
+        if (number <= 2) return number;
+        int one = 1;
+        int two = 2;
+        int result = 0;
+        for (int i = 3; i <= number; ++i)
+        {
+            result = one + two;
+            one = two;
+            two = result;
+        }
+        return result;
+    }
 };
 
 int main() 

@@ -29,7 +29,8 @@ public:
     int jumpFloor2(int number) {
         if (number == 1) return 1;
         if (number == 2) return 2;
-        return jumpFloor(number-1) + jumpFloor(number-2);
+        if (number == 3) return 4;
+        return jumpFloor(number-1) + jumpFloor(number-2) + jumpFloor(number-3);
     }
 };
 

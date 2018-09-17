@@ -48,6 +48,17 @@ public:
         
         return vec[number];
     }
+    int jumpFloorII_new(int number) {
+        if (number <= 2) return number;
+        int sum  = 2;
+        int result = 0;
+        for (int i = 3; i <= number; ++i)
+        {
+            result = sum * 2;
+            sum = result;
+        }
+        return result;
+    }
 };
 int main() 
 {
