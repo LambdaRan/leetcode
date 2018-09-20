@@ -42,7 +42,7 @@ private:
         currentSum += root->val;
         path.push_back(root->val);
 
-        bool isLeaf = root->left == NULL && root->right == NULL;
+        bool isLeaf = (root->left == NULL && root->right == NULL);
         if (currentSum == expectNumber && isLeaf)
         {
             result.push_back(path);

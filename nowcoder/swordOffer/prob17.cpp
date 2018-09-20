@@ -44,6 +44,8 @@ public:
         vector<int> valVecRoot1 = _preOrderLoop(pRoot1);
         vector<int> valVecRoot2 = _preOrderLoop(pRoot2);
 
+        // return std::search(valVecRoot1.begin(), valVecRoot1.end(), 
+        //             valVecRoot2.begin(), valVecRoot2.end()) != valVecRoot1.end();
         vector<int>::iterator first1 = valVecRoot1.begin();
 
         while (true)

@@ -70,7 +70,14 @@ public:
         pRoot->left = pRoot->right;
         pRoot->right = tmp;
     }
-
+    void Mirror_v2(TreeNode *pRoot) {
+        if (pRoot != NULL)
+        {
+            swap(pRoot->left, pRoot->right);
+            Mirror_v2(pRoot->left);
+            Mirror_v2(pRoot->right);
+        }
+    }
 };
 
 int main() 
