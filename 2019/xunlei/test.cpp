@@ -7,37 +7,35 @@
 #include <vector>
 #include <string>
 
-//#include <stdio.h>
+// #include <iostream>
 
-class A {};
-class B {};
+// #include <stdio.h>
+// #include <stdlib.h>
 
-class C : public A 
-{
-public: 
-    int c_;
-};
-class D : public A, public B 
-{
-public: 
-    int d_;
-};
-class E 
-{
-public: 
-    int e;
-    A a;
-    // B b;
-};
+// char* str_cpy(char* to, const char* from)
+// {
+//     char* save = to;
+//     for (; (*to = *from) != '\0'; ++from, ++to);
+//     return (save);
+// }
+
+// int main() 
+// {
+//     char 
+
+//     Strcpy(dst, src);
+//     printf("%s\n", dst);
+//     return 0;
+// }
 
 using namespace std;
 
+char* str_cpy()
+{
+    
+}
 int main()
 {
-    cout << "EBO" << endl;
-    cout << sizeof(A) << endl;
-    cout << sizeof(C) << endl;
-    cout << sizeof(D) << endl;
-    cout << sizeof(E) << endl;
+
     return 0;
 }
