@@ -28,10 +28,9 @@ public:
         stack<TreeNode*> treeStack;
         TreeNode head(0);
         TreeNode* pre = &head;
-        treeStack.push(pRootOfTree);
-        TreeNode* rootCur = pRootOfTree->left;
+        TreeNode* rootCur = pRootOfTree;
 
-        while (!treeStack.empty() || rootCur)
+        while (rootCur || !treeStack.empty())
         {
             while (rootCur)
             {

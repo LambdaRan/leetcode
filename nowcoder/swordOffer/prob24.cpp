@@ -115,6 +115,45 @@ public:
 
         return result;
     }
+    vector<vector<int> > FindPath_v2(TreeNode* root,int expectNumber) 
+    {
+        vector<vector<int>> result;
+        if (root == NULL) return result;
+        int sum = 0;
+        stack<TreeNode*> sk;
+        vector<int> values;
+        TreeNode* cur = root;
+        TreeNode* preVist = NULL;
+        while (cur != NULL || !sk.empty())
+        {
+            while (cur != NULL)
+            {
+                sk.push(cur);
+                values.emplace_back(cur->val);
+                sum += cur->val;
+                cur = cur->left;
+            }
+            if (!sk.empty())
+            {
+                cur = sk.top();
+                if (cur->left == NULL && cur->right == NULL && sum == expectNumber)
+                    result.emplace_back(values);
+                if (cur->right != NULL && cur->right != preVist)
+                {
+                    cur = cur->right; //转向未遍历过的右子树
+                }
+                else
+                {
+                    preVist = cur; //保存上一个已遍历的节点
+                    sk.pop();
+                    values.pop_back(); //从当前路径删除
+                    sum -= cur->val;
+                    cur = NULL;
+                }  
+            }
+        }
+        return result;
+    }
 };
 
 int main() 
