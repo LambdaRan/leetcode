@@ -35,6 +35,7 @@ public:
             if (diff == 0) return false;
             diffCount += diff - 1;
         }
+        if (zeroCount == 4) return true;
         if (zeroCount == diffCount)
             return true;
         return false;

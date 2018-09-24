@@ -51,6 +51,29 @@ public:
         }
         return result;
     }
+    string ReverseSentence_v2(string str) 
+    {
+        if (str.empty()) return str;
+        stack<string> vs;
+        size_t start = 0;
+        size_t size = str.size();
+        while (start < size)
+        {
+            auto ret = str.find_first_of(" ", start);
+            ret = (ret == string::npos) ? size : ret;
+            vs.push(str.substr(start, ret-start));
+            vs.push(std::string(" "));
+            start = ret + 1;
+        }
+        vs.pop();
+        string result;
+        while (!vs.empty())
+        {
+            result += vs.top();
+            vs.pop();
+        }
+        return result;
+    }
     // 使用内存IO在牛客网不能使用（段错误）
     string ReverseSentence1(string str) {
         if (str.empty()) return str;
@@ -82,9 +105,9 @@ int main()
     string str = "student. a am I";
     string str1 = "";
     string str2 = "lambda";
-    std::cout << s.ReverseSentence(str) << "\n";
-    std::cout << s.ReverseSentence(str1) << "\n";
-    std::cout << s.ReverseSentence(str2) << "\n";
+    std::cout << s.ReverseSentence_v2(str) << "\n";
+    std::cout << s.ReverseSentence_v2(str1) << "\n";
+    std::cout << s.ReverseSentence_v2(str2) << "\n";
     std::cout << std::endl;
     return 0;
 }

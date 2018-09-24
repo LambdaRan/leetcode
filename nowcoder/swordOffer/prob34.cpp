@@ -18,6 +18,8 @@ public:
     size_t FirstNotRepeatingChar(string str) 
     {
         if (str.empty()) return -1;
+        // 此外可以使用一个数组
+        // vector<int> assii('z'-'A'+1, 0);
         std::map<char, int> charCountMap;
         size_t strSize = str.size();
         for (size_t i = 0; i < strSize; ++i)
