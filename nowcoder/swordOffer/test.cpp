@@ -4,28 +4,56 @@
 
 using namespace std;
 
-struct A
+class C1 
 {
-    void fun()
+public: 
+    string GetName()
     {
-        cout << 1 << endl;
+        return "hello C1";
     }
 };
-struct B : A
+class C2 
 {
-    void fun()
+public: 
+    string GetName()
     {
-        cout << 2 << endl;
+        return "hello" + mName;
+    }
+private: 
+    string mName = "C2";
+};
+
+class C3 
+{
+public: 
+    string GetName()
+    {
+        return "hello"+name;
+    }
+private: 
+    static string name;
+};
+string C3::name = "C3";
+
+class C4 
+{
+public: 
+    virtual string GetName()
+    {
+        return "hello C4";
     }
 };
+
 int main()
 {
-    A a;
-    B b;
-    A* pa = &a;
-    A& aa = b;
+    C1* pC1 = nullptr;
+    C2* pC2 = nullptr;
+    C3* pC3 = nullptr;
+    C4* pC4 = nullptr;
 
-    pa->fun();
-    aa.fun();
+    cout << pC1->GetName() << endl;
+    //cout << pC2->GetName() << endl;
+    cout << pC3->GetName() << endl;
+    //cout << pC4->GetName() << endl;
     return 0;
 }   

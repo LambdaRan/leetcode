@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <queue>
 
 using namespace std;
 
@@ -37,6 +38,36 @@ private:
         if (pleft->val != pright->val) return false;
         return isSame(pleft->left, pright->right) && isSame(pleft->right, pright->left);
     }
+
+bool isSymmetric_v1(TreeNode* root) 
+{
+    if(root==NULL) return true;
+    queue<TreeNode*> q1,q2;
+    TreeNode *left,*right;
+    q1.push(root->left);
+    q2.push(root->right);
+    while(!q1.empty() and !q2.empty())
+    {
+        left = q1.front();
+        q1.pop();
+        right = q2.front();
+        q2.pop();
+        //两边都是空
+        if(NULL==left && NULL==right)
+            continue;
+        //只有一边是空
+        if(NULL==left||NULL==right)
+            return false;
+        if (left->val != right->val)
+            return false;
+        q1.push(left->left);
+        q1.push(left->right);
+        q2.push(right->right);
+        q2.push(right->left);
+    }
+        
+    return true;
+}
 };
 
 int main() 

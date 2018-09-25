@@ -21,7 +21,36 @@ struct ListNode {
 
 class Solution {
 public:
+
+// https://www.nowcoder.com/questionTerminal/253d2c59ec3e4bc68da16833f79a38e4
     ListNode* EntryNodeOfLoop(ListNode* pHead)
+    {
+        if (pHead == NULL || pHead->next == NULL || pHead->next->next == NULL) 
+            return NULL;
+        // 判断是否有环
+        ListNode* pFast = pHead->next->next;
+        ListNode* pSlow = pHead->next; // 为什么是pHead->next而不是pHead
+        while (pFast != pSlow)
+        {
+            if (pFast->next && pFast->next->next)
+            {
+                pFast = pFast->next->next;
+                pSlow = pSlow->next;
+            }
+            else  
+                return NULL;
+        }
+        // 到达此处，说明链表存在环，此时 pFast = pSlow
+        pFast = pHead;
+        while (pFast != pSlow)
+        {
+            pFast = pFast->next;
+            pSlow = pSlow->next;
+        }
+        return pSlow;
+    }
+
+    ListNode* EntryNodeOfLoop_v1(ListNode* pHead)
     {
         if (pHead == NULL) return NULL;
         std::unordered_set<ListNode*> visitedNodeSet_;

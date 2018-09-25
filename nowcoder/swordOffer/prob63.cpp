@@ -44,7 +44,7 @@ public:
                 static_cast<double>(lessQueue_.top());
     }
 private: 
-    // 大顶堆 中所有的元素值都小于顶堆中的元素指
+    // 大顶堆 中所有的元素值都小于小顶堆中的元素值
     std::priority_queue<int, std::vector<int>, std::less<int>> lessQueue_;
     // 小顶堆
     std::priority_queue<int, std::vector<int>, std::greater<int>> greaterQueue_;
