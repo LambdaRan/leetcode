@@ -13,8 +13,8 @@ using namespace std;
 
 
 /*
-* Name: 
-* Website: 
+* Name: 83.Remove Duplicates from Sorted List
+* Website: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 * Description: 
 *
 */
@@ -33,10 +33,29 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-    bool function() {
-        
+    ListNode* deleteDuplicates(ListNode* head) 
+    {
+        if (head == nullptr) return head;
+        ListNode* pSlow = head;
+        ListNode* pFast = pSlow->next;
+        while(pFast)
+        {
+            if (pFast->val == pSlow->val)
+            {
+                ListNode* cur = pFast;
+                pSlow->next = cur->next;
+                delete cur;
+            }
+            else  
+            {
+                pSlow = pSlow->next;
+            }
+            pFast = pSlow->next;
+        }
+        return head;
     }
 };
+
 
 int main() 
 {
