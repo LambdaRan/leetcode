@@ -10,8 +10,8 @@
 
 using namespace std;
 /*
-* Name: 118. Pascal's Triangle
-* WebSite: https://leetcode.com/problems/pascals-triangle/description/
+* Name: 119. Pascal's Triangle II
+* WebSite: https://leetcode.com/problems/pascals-triangle-ii/description/
 * Description: 
 *
 */
@@ -29,28 +29,28 @@ public:
         newColumns.emplace_back(1);
         result.emplace_back(newColumns);
     }
-    vector<vector<int>> generate(int numRows) {
+    vector<int> getRow(int rowIndex) 
+    {
         vector<vector<int>> result;
-        switch (numRows)
+        switch (rowIndex)
         {
-            case 0: 
+            case 0:
+                result.emplace_back(vector<int>(1,1)); 
                 break;
             case 1: 
                 result.emplace_back(vector<int>(1,1));
-                break;
-            case 2:
                 result.emplace_back(vector<int>(2,1));
                 break;
             default: 
             {
                 result.emplace_back(vector<int>(1,1));
                 result.emplace_back(vector<int>(2,1));
-                for (int i = 2; i < numRows; ++i)
+                for (int i = 2; i < rowIndex+1; ++i)
                     create(result, result.back());
             }
             break;
         }  
-        return result;
+        return result[rowIndex];
     }
 };
 

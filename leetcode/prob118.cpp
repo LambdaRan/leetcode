@@ -39,6 +39,7 @@ public:
                 result.emplace_back(vector<int>(1,1));
                 break;
             case 2:
+                result.emplace_back(vector<int>(1,1));
                 result.emplace_back(vector<int>(2,1));
                 break;
             default: 

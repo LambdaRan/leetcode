@@ -14,8 +14,8 @@ using namespace std;
 
 
 /*
-* Name: 
-* Website: 
+* Name: 100. Same Tree
+* Website: https://leetcode.com/problems/same-tree/description/
 * Description: 
 *
 */
@@ -37,8 +37,33 @@ public:
         if (p == nullptr && q == nullptr) return true;
         stack<TreeNode*> skp;
         stack<TreeNode*> skq;
-        
+        skp.push(p);
+        skq.push(q);
+        while (!skp.empty() && !skq.empty())
+        {
+            TreeNode* curp = skp.top();
+            skp.pop();
+            TreeNode* curq = skq.top();
+            skq.pop();
 
+            if (!curp && !curq) continue;
+            if ((!curp && curq) || (curp && !curq)) return false;
+            if (curp && curq)
+            {
+                if (curp->val != curq->val) return false;
+
+                skp.push(curp->left);
+                skp.push(curp->right);
+
+                skq.push(curq->left);
+                skq.push(curq->right);
+            }
+        }
+
+        if (skp.empty() && skq.empty())
+            return true;
+        else 
+            return false;
     }
     bool isSameTree_v1(TreeNode* p, TreeNode* q) {
         if (p == nullptr && q == nullptr) return true;
