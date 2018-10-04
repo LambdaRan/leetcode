@@ -52,6 +52,17 @@ public:
         }  
         return result[rowIndex];
     }
+    vector<int> getRow_v2(int rowIndex) {
+        std::vector<int> row;
+        long long  start = 1;
+        long long top = rowIndex + 1;
+        for (long long i = 0; i < rowIndex + 1; i++) {
+            start = i != 0 && top != 0 ? start * top / i : 1;
+            row.emplace_back(start);
+            top--;
+        }
+        return row;
+    }
 };
 
 int main() 
