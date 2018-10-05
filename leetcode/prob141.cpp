@@ -13,8 +13,8 @@ using namespace std;
 
 
 /*
-* Name: 
-* Website: 
+* Name: 141. Linked List Cycle
+* Website: https://leetcode.com/problems/linked-list-cycle/description/
 * Description: 
 *
 */
@@ -33,8 +33,20 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-    bool function() {
-        
+    // 单链表判断是否有环
+    // 使用两个指针:慢指针pSlow一次走一格,快指针pFast一次走两格,当快慢指针相遇时表明有环，否则无环
+    bool hasCycle(ListNode *head) {
+        if (!head) return false;
+        ListNode* pSlow = head;
+        ListNode* pFast = head->next;
+        while (pFast && pFast->next)
+        {
+            if (pSlow->val == pFast->val)
+                return true;
+            pSlow = pSlow->next;
+            pFast = pFast->next->next;
+        }
+        return false;
     }
 };
 
