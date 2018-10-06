@@ -22,14 +22,24 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
+    // Boyer-Moore Voting Algorithm
     int majorityElement(vector<int>& nums) {
-        int half =static_cast<int>(numbers.size()/2);
+        int count = 0;
+        int candidate = 0;
+        for (int v : nums)
+        {
+                if (count == 0)
+                    candidate = v;
+                count += (v == candidate ? 1 : -1);
+        }
+        return candidate;
+    }
+    int majorityElement_v1(vector<int>& nums) {
+        int half =static_cast<int>(nums.size()/2);
         map<int, int> numberCountMap;
         int count = 0;
-        for (auto &v : numbers)
-        {
+        for (auto &v : nums)
             numberCountMap[v]++;
-        }
 
         for (map<int, int>::const_iterator it = numberCountMap.begin();
             it != numberCountMap.end(); ++it)

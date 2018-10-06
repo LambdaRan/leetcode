@@ -9,6 +9,9 @@
 
 using namespace std;
 
+
+// Boyer-Moore Voting Algorithm
+
 string& trim(string &s) 
 {
     if (s.empty()) 
