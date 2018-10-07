@@ -11,6 +11,9 @@ using namespace std;
 
 
 // Boyer-Moore Voting Algorithm
+// Floyd Cycle detection algorithm
+// https://en.wikipedia.org/wiki/Cycle_detection
+// Kadene算法
 
 string& trim(string &s) 
 {
