@@ -94,7 +94,19 @@ int interpolation_search(int *arr, int size, int value)
     }
     return -1;    
 }
-
+// printf("%x\n", value);
+string convertHex(int n)
+{
+    const char digitsHex[] = "0123456789ABCDEF";
+    string result;
+    do {
+        int lsd = n % 16;
+        n /= 16;
+        result += digitsHex[lsd];
+    } while (n != 0);
+    std::reverse(result.begin(), result.end());
+    return result;
+}
 std::vector<int>& fibonacciLoop(int n = 23)
 {
     std::vector<int> oldValue(n+1);
