@@ -23,18 +23,28 @@ class Solution
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-    // Timer out limits
+    // Eratosthenes筛选算法
     int countPrimes(int n) {
-        if (n < 2) return 0;
-        int count = 0;
-        int j = 0;
-        for (int i = 2; i < n; ++i)
+        vector<bool> isPrimer(n, true);
+        for (int i = 2; i*i < n; ++i)
         {
-            for(j = 2; j <= sqrt(i); j++)
-                if(i % j == 0)  break;
-            if(j > sqrt(i)) ++count;
+            if (isPrimer[i])
+            {
+                // 将某个数的倍数都标记为非素数
+                for (int j = i*i; j < n; j+=i)
+                {
+                    isPrimer[j] = false;
+                }
+            }
         }
-        return count;
+        return count(isPrimer.begin(), isPrimer.end(), true);
+        // int count = 0;
+        // for (int i = 2; i < n; ++i)
+        // {
+        //     if (isPrimer[i])
+        //         ++count;
+        // }
+        // return count;
     }
 };
 

@@ -14,6 +14,7 @@ using namespace std;
 // Floyd Cycle detection algorithm
 // https://en.wikipedia.org/wiki/Cycle_detection
 // Kadene算法
+// Eratosthenes筛法
 
 string& trim(string &s) 
 {
