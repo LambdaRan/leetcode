@@ -174,3 +174,21 @@ unsigned long lcm_not_zero(unsigned long a, unsigned long b)
 	return (b ? : a);
 }
 
+#include <stdbool.h>
+bool isUglyNumber(int value)
+{
+	if (value <= 0) return false;
+	int base[] = {2,5,3};
+	for (int i = 0; i < 3; ++i)
+	{
+		int quotient = value / base[i];
+		int remain = value % base[i];
+		while (remain == 0)
+		{
+			value = quotient;
+			quotient = value /base[i];
+			remain = value % base[i];
+		}
+	}
+	return value == 1;
+}

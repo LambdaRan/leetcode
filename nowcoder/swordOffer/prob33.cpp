@@ -61,6 +61,7 @@ public:
 private: 
     bool isUglyNumber(int value)
     {
+        if (value <= 0) return false;
         int base[] = {2,5,3};
         for (int i = 0; i < 3; ++i)
         {

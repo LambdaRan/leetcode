@@ -56,7 +56,7 @@ public:
             --mid;
         }
         // 保存后半截链表
-        head = pHead;
+        //head = pHead;
         
         if (size % 2 == 1) pHead = pHead->next;
         cur = root.next;
