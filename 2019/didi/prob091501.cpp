@@ -65,7 +65,7 @@ int main()
     string line;
     getline(cin, line);
 
-    vector<string> words = split(line, ' ');
+    vector<string> words = split(line, " ");
     string target = words[0];
     words.erase(words.begin());
     vector<Word> wword;
