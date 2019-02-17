@@ -58,11 +58,11 @@ CC = g++
 
 SRC = prob219.cpp
 
-main:$(SRC) 
-	$(CC) $(CXXFLAGS)  $(SRC) -o main
+zmain:$(SRC) 
+	$(CC) $(CXXFLAGS)  $(SRC) -o zmain
 
 test:test.cpp
-	$(CC) $(CXXFLAGS)  test.cpp -o main
+	$(CC) $(CXXFLAGS)  test.cpp -o zmain
 	
 .PHONY:clean
 clean:
