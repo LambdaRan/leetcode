@@ -32,45 +32,24 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-    int longestValidParentheses(string s) 
+    int longestValidParentheses1(string s) 
     {
-        if (s.size() <= 1) return 0;
-        vector<char> stack;
-        int result = 0;
-        int longestValid = 0;
-        for (char ch : s)
-        {
-            if (ch == '(')
-            {
-                if (!stack.empty() && stack.back() == '(')
-                {
-                    result = 0;
-                    continue;
+        int maxans = 0;
+        std::vector<int> dp(s.length());
+        for (int i = 1; i < s.length(); i++) {
+            if (s[i] == '}') {
+                if (s[i-1] == '{') {
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+                } else if (i - dp[i - 1] > 0 && s[i - dp[i - 1] - 1] == '{') {
+                    dp[i] = dp[i - 1] + ((i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0) + 2;
                 }
-                stack.push_back(ch);
-            }
-            else  
-            {
-                if (stack.empty())
-                    continue;
-                else  
-                {
-                    if (stack.back() == '(')
-                    {
-                        result += 2;
-                        longestValid = max(longestValid, result);
-                    }
-                    else  
-                    {
-                        result = 0;
-                    }    
-                    stack.pop_back();
-                }
+                maxans = std::max(maxans, dp[i]);
             }
         }
-        return longestValid;
+        return maxans;
     }
 };
+
 // "()(())"
 // 6
 
@@ -81,8 +60,11 @@ int main()
     Solution s;
 
     std::cout << "method 1: \n";
-    std::cout <<  "function(): true <------> " << boolToString(s.function()) << "\n";
-
+//    std::cout <<  "function(): true <------> " << boolToString(s.function()) << "\n";
+    string in = "";
+    while (std::cin >> in) {
+        std::cout << s.longestValidParentheses(in) << std::endl;
+    }
     std::cout << std::endl;
     return 0;
 }
