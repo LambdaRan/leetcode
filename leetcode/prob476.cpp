@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -21,21 +20,16 @@ public:
     * Runtime:    ms
     * Your runtime beats  % of cpp submissions. 
     */
-    int findRadius(vector<int>& houses, vector<int>& heaters) {
-        std::sort(heaters.begin(), heaters.end());
-        int radius = 0;
+    int findComplement(int num) {
         int res = 0;
-        for (int house : houses) {
-            auto lbv = std::lower_bound(heaters.begin(), heaters.end(), house);
-            
-            radius = (lbv != heaters.end() ? *lbv-house : std::numeric_limits<int>::max());
-            if (lbv != heaters.begin()) {
-                radius = min(radius, house-*(--lbv));
+        int idx = 0;
+        for (; num > 0; num >>= 1, ++idx) {
+            if ((num & 0x01) == 0) {
+                res |= (0x01 << idx);
             }
-            res = max(res, radius);
         }
         return res;
-    }
+    }  
 };
 
 int main() 
