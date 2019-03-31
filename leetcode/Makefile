@@ -56,7 +56,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob32.cpp
+SRC = prob492.cpp
 
 zmain:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o zmain
