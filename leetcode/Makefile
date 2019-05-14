@@ -10,8 +10,8 @@
 # 		 -Wmissing-declarations  -Winline \
 # 		 -Wmissing-prototypes -Wtraditional -Wredundant-decls -pedantic
 
-CXXFLAGS += -Wall -Wextra -Werror -Wshadow -Wconversion -Wfatal-errors -std=c++11
-CXXFLAGS += -g -Wpointer-arith \
+CXXFLAGS += -Wall -Wextra -Werror -Wshadow  -std=c++11
+CXXFLAGS += -g -Wconversion -Wfatal-errors -Wpointer-arith \
 		-Wno-parentheses -Wunreachable-code -Wundef -Wctor-dtor-privacy \
 		-Wcast-align -Wformat -Wchar-subscripts \
 		-Wformat-nonliteral -Wmissing-braces -Wuninitialized \
@@ -56,7 +56,7 @@ CC = g++
 
 #INCLUDE = -I./simple/
 
-SRC = prob492.cpp
+SRC = prob500.cpp
 
 zmain:$(SRC) 
 	$(CC) $(CXXFLAGS)  $(SRC) -o zmain

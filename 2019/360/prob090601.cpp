@@ -37,7 +37,7 @@ int calc(vector<int>& a, int n)
                     s1+=j;
                     vector<int> side = {s1,s2,s3};
                     sort(side.begin(), side.end(), greater<int>());
-                     s1 = side[0];
+                    s1 = side[0];
                     s2 = side[1];
                     s3 = side.back();
                     if ((s1+s2>s3)&& (s2+s3>s1)&&(s3+s1>s2))
