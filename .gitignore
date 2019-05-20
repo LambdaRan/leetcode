@@ -23,7 +23,7 @@
 # Compiled Static libraries
 *.lai
 *.la
-*.a
+#*.a
 *.lib
 
 # Executables
@@ -31,6 +31,7 @@
 *.out
 *.app
 
+zmain
 main
 test
 .vscode
