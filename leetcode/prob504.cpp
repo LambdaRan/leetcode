@@ -47,21 +47,21 @@ public:
 };
 
 
-Solution s; 
+Solution solu; 
 
 TEST(ConvertToBase7Test, Negative) 
 {
-    EXPECT_EQ("-10", s.convertToBase7(-7));
-    EXPECT_EQ("-202", s.convertToBase7(-100));
+    EXPECT_EQ("-10", solu.convertToBase7(-7));
+    EXPECT_EQ("-202", solu.convertToBase7(-100));
 }
 
 TEST(ConvertToBase7Test, Zero)
 {
-    EXPECT_EQ("0", s.convertToBase7(0));
+    EXPECT_EQ("0", solu.convertToBase7(0));
 }
 
 TEST(ConvertToBase7Test, Positive)
 {
-    EXPECT_EQ("202", s.convertToBase7(100));
+    EXPECT_EQ("202", solu.convertToBase7(100));
 }
               
