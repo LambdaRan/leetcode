@@ -15,7 +15,7 @@ GTEST_LIB_DIR = .
 USER_DIR = .
 
 # LeetCode Solution COde
-SRC = prob509.cpp
+SRC = prob520.cpp
 
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
