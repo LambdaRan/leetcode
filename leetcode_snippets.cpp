@@ -162,7 +162,7 @@ TreeNode* stringToTreeNode(string input) {
         if (!getline(ss, item, ',')) {
             break;
         }
-
+ 
         trimLeftTrailingSpaces(item);
         if (item != "null") {
             int leftNumber = stoi(item);
@@ -189,3 +189,4 @@ static int speed_up = []() {
   cin.tie(NULL);
   return 0;
 }();
+
