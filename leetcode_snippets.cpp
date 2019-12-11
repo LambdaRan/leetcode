@@ -16,11 +16,11 @@ using namespace std;
 // Kadene算法
 // Eratosthenes筛法
 
-string& trim(string &s) 
+string& trim(string &s)
 {
-    if (s.empty()) 
+    if (s.empty())
         return s;
-    
+
     s.erase(0,s.find_first_not_of(" "));
     s.erase(s.find_last_not_of(" ") + 1);
     return s;
@@ -42,7 +42,7 @@ vector<string> strSplit(const string& str, char dem)
 }
 // #include <sstream>
 // #include <cctype>
-vector<int> strSplit(string input, char delim) 
+vector<int> strSplit(string input, char delim)
 {
     vector<int> output;
     // trimLeftTrailingSpaces(input);
@@ -76,7 +76,7 @@ void trimRightTrailingSpaces(string &input) {
     }).base(), input.end());
 }
 
-vector<int> stringToIntegerVector(string input) 
+vector<int> stringToIntegerVector(string input)
 {
     vector<int> output;
     trimLeftTrailingSpaces(input);
@@ -162,7 +162,7 @@ TreeNode* stringToTreeNode(string input) {
         if (!getline(ss, item, ',')) {
             break;
         }
- 
+
         trimLeftTrailingSpaces(item);
         if (item != "null") {
             int leftNumber = stoi(item);
@@ -189,4 +189,3 @@ static int speed_up = []() {
   cin.tie(NULL);
   return 0;
 }();
-
