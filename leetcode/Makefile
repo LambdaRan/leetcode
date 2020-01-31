@@ -15,12 +15,15 @@ GTEST_LIB_DIR = .
 USER_DIR = .
 
 # LeetCode Solution COde
-SRC = prob532.cpp
+SRC = prob541.cpp
 
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
 # the compiler doesn't generate warnings in Google Test headers.
 CPPFLAGS += -isystem $(GTEST_DIR)/include
+
+# CFLAGS += -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+# CPATH = `xcrun --show-sdk-path`/usr/include
 
 # Flags passed to the C++ compiler.
 #CXXFLAGS += -g -Wall -Wextra -pthread -std=c++11 
@@ -38,6 +41,8 @@ GTEST_LIBS = libgtest.a libgtest_main.a
 # created to the list.
 TESTS = zmain
 
+# AR = /Library/Developer/CommandLineTools/usr/bin/ar
+# CXX = /Library/Developer/CommandLineTools/usr/bin/cc
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -50,7 +55,6 @@ all : $(GTEST_LIBS) $(TESTS)
 
 clean :
 	rm -f $(TESTS) *.o
-
 clean_lib :
 	rm -f $(GTEST_LIBS) 
 # Builds gtest.a and gtest_main.a.
