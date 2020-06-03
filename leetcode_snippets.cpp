@@ -184,6 +184,19 @@ TreeNode* stringToTreeNode(string input) {
     return root;
 }
 
+int main() {
+    string line;
+    while (getline(cin, line)) {
+        TreeNode* root = stringToTreeNode(line);
+
+        int ret = Solution().diameterOfBinaryTree(root);
+
+        string out = to_string(ret);
+        cout << out << endl;
+    }
+    return 0;
+}
+
 static int speed_up = []() {
   ios::sync_with_stdio(false);
   cin.tie(NULL);

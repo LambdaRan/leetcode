@@ -15,7 +15,7 @@ GTEST_LIB_DIR = .
 USER_DIR = .
 
 # LeetCode Solution COde
-SRC = prob541.cpp
+SRC = prob543.cpp
 
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
@@ -26,7 +26,7 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 # CPATH = `xcrun --show-sdk-path`/usr/include
 
 # Flags passed to the C++ compiler.
-#CXXFLAGS += -g -Wall -Wextra -pthread -std=c++11 
+#CXXFLAGS += -g -Wall -Wextra -pthread -std=c++11
 CXXFLAGS += -g -Wall -Wextra -Wshadow  -std=c++11 -pthread
 CXXFLAGS += -Wconversion -Wconversion-null -Wfatal-errors -Wpointer-arith \
 		-Wunreachable-code -Wundef -Wctor-dtor-privacy -Wcast-align \
@@ -56,7 +56,7 @@ all : $(GTEST_LIBS) $(TESTS)
 clean :
 	rm -f $(TESTS) *.o
 clean_lib :
-	rm -f $(GTEST_LIBS) 
+	rm -f $(GTEST_LIBS)
 # Builds gtest.a and gtest_main.a.
 
 # Usually you shouldn't tweak such internal variables, indicated by a

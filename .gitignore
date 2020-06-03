@@ -34,5 +34,8 @@
 zmain
 main
 test
+leetCode/zmain
+leetCode/main
+leetCode/test
 .vscode
 *.dSYM
