@@ -18,17 +18,14 @@ public:
         for (char c : s) {
             if (c == 'A') {
                 ++a_count;
-                if (a_count > 1) {
-                    return false;
-                }
             }
             if (c == 'L') {
                 ++p_count;
-                if (p_count > 2) {
-                    return false;
-                }
             } else {
                 p_count = 0;
+            }
+            if (a_count > 1 || p_count > 2) {
+                return false;
             }
         }
         return true;
