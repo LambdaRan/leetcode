@@ -12,7 +12,7 @@
 //#include <string>
 
 template<typename T>
-class BinaryTree 
+class BinaryTree
 {
 public:
     BinaryTree()
@@ -51,7 +51,7 @@ public:
     int height() const;
 
 private:
-    struct Node 
+    struct Node
     {
         explicit Node(const T &value)
             : data_(value), lchild_(NULL), rchild_(NULL)
@@ -86,13 +86,13 @@ typename BinaryTree<T>::Node* BinaryTree<T>::_preRecursiveCreateBinaryTree()
     scanf("%c", &ch);
     if (ch == '#')
         t = NULL;
-    else  
+    else
     {
 		t = new Node(ch);
         assert(t != NULL);
 
 		t->lchild_ = _preRecursiveCreateBinaryTree();
-		t->rchild_ = _preRecursiveCreateBinaryTree();        
+		t->rchild_ = _preRecursiveCreateBinaryTree();
     }
     return t;
 }
@@ -121,9 +121,9 @@ void BinaryTree<T>::create()
 template<typename T>
 void BinaryTree<T>::_preOrderRecursive(Node *h) const
 {
-	if (h == NULL) 
+	if (h == NULL)
 		return;
-	_visit(h); 
+	_visit(h);
 	_preOrderRecursive(h->lchild_);
 	_preOrderRecursive(h->rchild_);
 }
@@ -146,7 +146,7 @@ void BinaryTree<T>::preOrderLoop() const
 		if (tmp->rchild_ != NULL)
 			treeStack.push(tmp->rchild_);
 		if (tmp->lchild_ != NULL)
-			treeStack.push(tmp->lchild_); 
+			treeStack.push(tmp->lchild_);
     }
 }
 template<typename T>
@@ -191,7 +191,7 @@ void BinaryTree<T>::midOrderLoop() const
             _visit(cur);
             cur = cur->rchild_;
         }
-    }    
+    }
 }
 
 // 后序遍历
@@ -199,12 +199,12 @@ template<typename T>
 void BinaryTree<T>::afterOrderLoop() const
 {
     std::stack<Node *> stk;
-    Node *cur = header_; // 指向当前要检查的节点  
-    Node *preVisit = NULL; // 指向前一个被访问的节点 
+    Node *cur = header_; // 指向当前要检查的节点
+    Node *preVisit = NULL; // 指向前一个被访问的节点
 
     while (cur != NULL || !stk.empty())
     {
-        while (cur != NULL) // 一直向左走直到为空  
+        while (cur != NULL) // 一直向左走直到为空
         {
             stk.push(cur);
             cur = cur->lchild_;
@@ -218,11 +218,11 @@ void BinaryTree<T>::afterOrderLoop() const
             stk.pop();
             cur = NULL;
         }
-        else  
+        else
         {
             cur = cur->rchild_;
         }
-    }        
+    }
 }
 
 // 层序遍历
@@ -277,7 +277,7 @@ int BinaryTree<T>::countLoop() const
             que.push(cur->lchild_);
         if (cur->rchild_ != NULL)
             que.push(cur->rchild_);
-    }    
+    }
 	return count;
 }
 // 递归计算高度
@@ -302,10 +302,10 @@ int BinaryTree<T>::height() const
 template<typename T>
 void BinaryTree<T>::_lastRecursiveClear(Node *h)
 {
-	if (h == NULL) 
+	if (h == NULL)
 		return;
 	_lastRecursiveClear(h->lchild_);
 	_lastRecursiveClear(h->rchild_);
-	_free(h);     
+	_free(h);
 }
 #endif // !BINARYTREE_H
