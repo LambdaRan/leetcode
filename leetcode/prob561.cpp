@@ -12,7 +12,7 @@ using namespace std;
 // Description:
 
 class Solution {
-  public:
+public:
     int arrayPairSum(vector<int>& nums) {
         if (nums.empty()) {
             return 0;
