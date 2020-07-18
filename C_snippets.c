@@ -92,10 +92,10 @@ time_t time(time_t *returned_value);//返回当前时间，秒数
 
 	char *ctime(time_t const *time_value);//时间字符串
 	double difftime(time_t time1, time_t time2);//计算time1-time2 并转换成秒
-	
+
 	struct tm *gmtime(time_t const *time_value);//格林威治时间
 	struct tm *localtime(time_t const *time_value);//当地时间
-		
+
 		char *asctime(struct tm const *tm_ptr);//时间字符串
 		size_t strftime(char *string, size_t maixsize, char const *format, struct tm const *tm_ptr);//格式化输出时间
 		time_t mktime(struct tm *tm_ptr);//将tm结构时间转换成time_t值
@@ -105,6 +105,16 @@ time_t time(time_t *returned_value);//返回当前时间，秒数
 // 数据大时最好用scanf()、printf()减少时间。
 // 先用scanf()，再用gets()会读入回车。
 // scanf("%c%c",&c1,&c2)会读入空格；
+
+
+// #  把宏参数变为一个字符串
+// #define print(val)\
+//     std::cout << #val << std::endl
+
+// ## 连接作用
+// #define test(type)\
+//     std::string hello##type = "lambda";\
+//     std::cout << hello##type << std::endl
 
 int a,d;
 // 读到文件的结尾，程序自动结束
@@ -121,7 +131,7 @@ while( scanf("%d%d%d",&a,&b,&c)&&a+b+c )
 int n;
 while (scanf("%d", &n) != EOF){
 //...
-} 
+}
 
 int isPrime(int n)
 {
