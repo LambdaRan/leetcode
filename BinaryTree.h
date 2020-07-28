@@ -224,6 +224,32 @@ void BinaryTree<T>::afterOrderLoop() const
         }
     }
 }
+// 后序遍历：双栈写法
+// 根左右，利用连个栈，根据前序遍历的方法，一个用于根右左遍历，一个用于保存序列，最后倒序正好是左右根。
+template<typename T>
+void BinaryTree<T>::afterOrderLoop_v2() const
+{
+    Node* cur = header_;
+    std::stack<Node*> reverse_stk;
+    std::stack<Node*> stk;
+    while (cur != nullptr || !reverse_stk.empty()) {
+        while (cur != nullptr) {
+            stk.push(cur)
+            reverse_stk.push(cur);
+            cur = cur->rchild_;
+        }
+
+        if (!reverse_stk.empty()) {
+            cur = reverse_stk.top();
+            reverse_stk.pop();
+            cur = cur->lchild_;
+        }
+    }
+    while (!stk.empty()) {
+        _visit(stk.top());
+        stk.pop();
+    }
+}
 
 // 层序遍历
 template<typename T>
