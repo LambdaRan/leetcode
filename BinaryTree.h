@@ -225,7 +225,7 @@ void BinaryTree<T>::afterOrderLoop() const
     }
 }
 // 后序遍历：双栈写法
-// 根左右，利用连个栈，根据前序遍历的方法，一个用于根右左遍历，一个用于保存序列，最后倒序正好是左右根。
+// 根左右，利用两个栈，根据前序遍历的方法，一个用于根右左遍历，一个用于保存序列，最后倒序正好是左右根。
 template<typename T>
 void BinaryTree<T>::afterOrderLoop_v2() const
 {
